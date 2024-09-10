@@ -1,0 +1,23 @@
+.pay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 475px;
+    margin-top: 100px;
+    flex-direction: column;
+}
+.card {
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.card.active {
+    background-color: #007bff; /* Cambia a color primario cuando se selecciona */
+    color: white; /* Cambia el texto a blanco cuando se selecciona */
+    border-color: #007bff; /* Añade un borde cuando se selecciona */
+}
+
+.card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}

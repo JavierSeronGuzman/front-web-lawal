@@ -1,1 +1,247 @@
 /* You can add global styles to this file, and also import other style files */
+.whatsapp-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    background-color: #25D366;
+    color: white;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+}
+.whatsapp-button:hover {
+    background-color: #1ebe57;
+    color: white;
+}
+.msg-button {
+  position: fixed;
+  bottom: 30px;
+  right: 90px;
+  z-index: 1000;
+  background-color: white;
+  color: black;
+  border-radius: 10%;
+  width: 150px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+  text-decoration: none;
+}
+.msg-button:hover {
+  background-color: gray;
+  color: white;
+}
+.custom-height {
+    height: 300px; /* Ajusta la altura a tu preferencia */
+    object-fit: cover; /* Recorta la imagen para llenar el contenedor */
+}
+/* Ajusta el menú desplegable */
+.dropdown-menu-end {
+    right: 0;
+    left: auto;
+  }
+  .icon-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+  
+  .icon-button:focus {
+    outline: none;
+  }
+  
+  .mx-5 {
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+  }
+
+.carousel-img {
+    height: 650px;
+}
+
+/* You can add global styles to this file, and also import other style files */
+.abrir-modal {
+  background-color: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 1050;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.animacion {
+  animation-duration: 0.5s;
+  animation-fill-mode: both;
+  -webkit-animation-duration: 0.5s;
+  -webkit-animation-fill-mode: both;
+}
+
+.fadeIn {
+  animation-name: fadeIn;
+  -webkit-animation-name: fadeIn;
+}
+
+@keyframes fadeIn {
+  0% {
+      opacity: 0
+  }
+
+  to {
+      opacity: 1
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+      opacity: 0
+  }
+
+  to {
+      opacity: 1
+  }
+}
+.navbar {
+  z-index: 1000; /* Asegúrate de que este valor sea menor que el de la modal */
+}
+/* Estilo para los elementos del menú desplegable */
+.dropdown-menu .dropdown-menu {
+  display: none;
+  position: absolute;
+  left: 100%; /* Ajusta esto para la posición horizontal */
+  top: 0;
+  margin-top: -1px;
+}
+
+/* Mostrar submenús cuando el elemento principal es hoverado */
+.dropdown-menu > .dropend:hover > .dropdown-menu {
+  display: block;
+}
+
+/* Asegurarse de que el menú desplegable se muestre correctamente en pantallas pequeñas */
+@media (max-width: 767.98px) {
+  .dropdown-menu {
+    position: static; /* Cambia a posición estática para pantallas pequeñas */
+    margin-left: 0; /* Ajusta el margen izquierdo si es necesario */
+  }
+
+  .dropdown-menu .dropdown-menu {
+    left: 45%; /* Muestra el submenú hacia la izquierda */
+    top: 0%; /* Ajusta la posición vertical si es necesario */
+  }
+}
+@media (min-width: 768px) and (max-width: 1280px) {
+  .dropdown-menu {
+    position: static; /* Cambia a posición estática para pantallas pequeñas */
+    margin-left: 0; /* Ajusta el margen izquierdo si es necesario */
+  }
+
+  .dropdown-menu .dropdown-menu {
+    left: 25%; /* Muestra el submenú hacia la izquierda */
+    top: 0%; /* Ajusta la posición vertical si es necesario */
+  }
+}
+
+/* Estilo cuando se pasa el cursor sobre el menú desplegable */
+.nav-item.dropdown:hover > .dropdown-menu {
+  display: block;
+}
+
+/* Estilo del enlace de la categoría */
+.nav-item.dropdown:hover > .nav-link {
+  color: #fff;
+  text-decoration: underline; /* Subrayado del texto */
+}
+
+.row {
+  position: relative;
+}
+
+.overflow-hidden {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+.btn-scroll-left,
+.btn-scroll-right {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-150%);
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+  color: white; /* Texto blanco */
+  border: none; /* Sin bordes */
+  padding: 1px 1px; /* Tamaño más pequeño */
+  z-index: 10;
+  cursor: pointer;
+  outline: none; /* Elimina el borde al hacer clic */
+  border-radius: 50%; /* Botones circulares */
+  width: 50px;
+  height: 50px;
+}
+
+.btn-scroll-left {
+  left: 5px; /* Ajusta la posición a la izquierda */
+}
+
+.btn-scroll-right {
+  right: 5px; /* Ajusta la posición a la derecha */
+}
+
+.btn-scroll-left:hover,
+.btn-scroll-right:hover {
+  background-color: rgba(0, 0, 0, 0.7); /* Fondo más oscuro al pasar el ratón */
+}
+
+.btn-scroll-left:focus,
+.btn-scroll-right:focus {
+  outline: none; /* Elimina el borde de enfoque */
+}
+
+.btn-custom-size {
+  padding: 2px 10px; /* Aumenta el padding para hacer el botón más grande */
+  font-size: 15px;
+  font-weight: bolder; /* Ajusta el tamaño de la fuente si lo deseas */
+}
+
+.price {
+  font-size: 25px;
+  font-weight: bolder;
+  color: blue;
+  margin-top: -10px;
+}
+.descripcion{
+  margin-top: -10px;
+}
+
+
+.table-sm th, .table-sm td {
+  padding: 0.2rem; /* Reduce el padding */
+}
+
+.btn-group-sm .btn {
+  padding: 0.1rem 0.1rem; /* Ajusta el padding del botón para hacerlo más compacto */
+  font-size: 0.875rem; /* Tamaño más pequeño de fuente */
+}
+
+span.mx-2 {
+  padding: 0.05rem 0.05rem; /* Reduce el espacio entre los botones */
+  font-size: 1rem; /* Ajusta el tamaño del número */
+}
+.btn-success:disabled,
+.btn-success[disabled] {
+  pointer-events: none; /* Evita que el botón reciba clics */
+  opacity: 1; /* Cambia la opacidad para dar una indicación visual de que está deshabilitado */
+}

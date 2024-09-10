@@ -1,0 +1,15 @@
+.btn-custom-size {
+    padding: 2px 10px; /* Aumenta el padding para hacer el botón más grande */
+    font-size: 15px;
+    font-weight: bolder; /* Ajusta el tamaño de la fuente si lo deseas */
+}
+
+.price {
+    font-size: 25px;
+    font-weight: bolder;
+    color: blue;
+    margin-top: -10px;
+}
+.descripcion{
+    margin-top: -10px;
+}

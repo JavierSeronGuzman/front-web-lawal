@@ -1,0 +1,79 @@
+<div class="pay">
+    <div class="row">
+        <div class="col-6">
+            <table class="table table-hover table-striped">
+                <thead>
+                    <tr>
+                        <h1>Productos</h1>
+        
+                    </tr>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+            
+                    @for (item of items; track $index) {
+                        <tr>
+                            <td> {{item.product.name}}</td>
+                            <td> ${{item.product.price}}</td>
+                            <td> {{item.quantity}}</td>
+                            <td> ${{item.product.price * item.quantity}}</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" class="text-end fw-bold">Total</td>
+                        <td colspan="2" class="text-start fw-bold">${{total}} CLP</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="col-6">
+    
+            <h3>Información de contacto</h3>
+            <form (ngSubmit)="onSubmit(clientForm)" #clientForm="ngForm">
+                <div>
+                    <input
+                    placeholder="Nombre"
+                    name="name"
+                    [(ngModel)] = "client.name"
+                     class="form-control my-2"
+                     required
+                     #name="ngModel">
+                     @if (name.invalid && (name.dirty || name.touched)) {
+                        @if (name.errors!['required']) {
+                            <div class="text-danger">
+                                Nombre es requerido
+                            </div>
+                        }
+                     }
+                </div>
+                <div>
+                    <input
+                    placeholder="Telefono +(56)"
+                    name="telefono"
+                    [(ngModel)] = "client.telefono"
+                     class="form-control my-2"
+                     required
+                     #telefono="ngModel">
+                     @if (name.invalid && (name.dirty || name.touched)) {
+                        @if (name.errors!['required']) {
+                            <div class="text-danger">
+                                 es requerido
+                            </div>
+                        }
+                     }
+                </div>
+                <div class="alert alert-danger">Pronto un asesor se comunicara contigo via WhatsApp</div>
+            </form>
+        </div>
+        <div class="row">
+            <button class="btn btn-success" (click)="onSubmit(clientForm)">Ver Disponibilidad</button>
+        </div>
+      
+</div>

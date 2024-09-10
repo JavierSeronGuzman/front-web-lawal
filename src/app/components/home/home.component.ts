@@ -1,0 +1,119 @@
+import { Component, OnInit} from '@angular/core';
+import { NavigationEnd, Router, RouterModule, RouterOutlet } from '@angular/router';
+import { CardsComponent } from '../cards/cards.component';
+import { BannerComponent } from '../banner/banner.component';
+import { OfertasComponent } from '../ofertas/ofertas.component';
+import { MapComponent } from '../map/map.component';
+import { AboutusComponent } from '../aboutus/aboutus.component';
+import { SharingDataService } from '../../services/sharing-data.service';
+import { CommonModule, ViewportScroller } from '@angular/common';
+import { ProductStar } from '../../models/productStar';
+import { GroupedProducts } from '../../models/groupedProducts';
+import { ProductService } from '../../services/product.service';
+import { GroupedProductsStar } from '../../models/groupedProductsStar';
+import { Product } from '../../models/product';
+
+@Component({
+  selector: 'app-home',
+  standalone: true,
+  imports: [RouterOutlet,BannerComponent,OfertasComponent,CardsComponent,AboutusComponent,MapComponent, CommonModule, RouterModule
+  ],
+  templateUrl: './home.component.html'
+})
+export class HomeComponent implements OnInit{
+
+  products: ProductStar[] = [];
+  groupedProducts: GroupedProductsStar= {};
+
+  constructor(private service: ProductService,private sharingDataService: SharingDataService,
+    private router: Router, private viewportScroller: ViewportScroller
+  ){}
+  ngOnInit(): void {
+    this.service.getProductsStars().subscribe(products =>{
+      this.products = products;
+      this.group();
+    })
+        // Scroll al inicio cuando la aplicación carga o la página se refresca
+    window.scrollTo(1, 1);
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.viewportScroller.scrollToPosition([0, 0]);
+      }});
+    this.scrollToMap();
+    this.home();
+  }
+
+  group() {
+    // Objeto para almacenar los productos agrupados
+    this.groupedProducts = this.products.reduce<GroupedProductsStar>((acumulador, product) => {
+      if (!acumulador[product.category]) {
+        acumulador[product.category] = {};
+      }
+  
+      if (!acumulador[product.category][product.subcategory]) {
+        acumulador[product.category][product.subcategory] = [];
+      }
+  
+      // Crear un conjunto para rastrear nombres de productos ya añadidos en la categoría y subcategoría
+      const addedProductNames = new Set(acumulador[product.category][product.subcategory].map(p => p.name));
+  
+      // Solo agregar el producto si su nombre no está en el conjunto
+      if (!addedProductNames.has(product.name)) {
+        acumulador[product.category][product.subcategory].push(product);
+      }
+  
+      return acumulador;
+    }, {});
+  
+    // Ordenar las categorías por prioridad usando `categoryPriority`
+    const orderedGroupedProducts: GroupedProductsStar = Object.keys(this.groupedProducts)
+      .sort((a, b) => {
+        const priorityA = this.products.find(p => p.category === a)?.categoryPriority!;
+        const priorityB = this.products.find(p => p.category === b)?.categoryPriority!;
+        return priorityA - priorityB;
+      })
+      .reduce((obj, key) => {
+        obj[key] = this.groupedProducts[key];
+        return obj;
+      }, {} as GroupedProductsStar);
+  
+    this.groupedProducts = orderedGroupedProducts;
+  
+    console.log(this.groupedProducts);
+  }
+
+  getCategoryKeys(): string[] {
+    return Object.keys(this.groupedProducts);
+  }
+  getSubcategoryKeys(category: string): string[] {
+    return Object.keys(this.groupedProducts[category] || {});
+  }
+
+
+  scrollToMap(): void{
+    this.sharingDataService.scrollMapEventEmitter.subscribe(() =>{
+      
+      const mapElement = document.getElementById("map");
+      if (mapElement) {
+        mapElement.scrollIntoView({ behavior: 'smooth' });
+      }
+    })
+  }
+
+  home(): void{
+    this.sharingDataService.homeEventEmitter.subscribe(() => {
+      window.scrollTo(1, 1);
+    })
+  }
+  formatPrice(price: number): string {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  }
+
+  getProduct(name: string): void{
+    this.service.search(name).subscribe(product =>{
+      this.sharingDataService.getProduct.emit(product);
+    })
+  }
+  
+}

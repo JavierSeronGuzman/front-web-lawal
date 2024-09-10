@@ -1,0 +1,39 @@
+<table class="table table-hover table-striped table-sm text-center">
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Total</th>
+            <th>Eliminar</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (item of items; track $index) {
+            <tr>
+                <td class="align-middle">{{item.product.name}} {{item.product.medida}}</td>
+                <td class="align-middle">${{formatPrice(item.product.price)}}</td>
+                <td class="align-middle">
+                    <div class="btn-group btn-group-sm">
+                        <input type="number" class="form-control mx-2" [(ngModel)]="item.quantity"
+                               (ngModelChange)="addCart(item.product.id, $event)"
+                               min="1" required
+                               style="width: 100px; text-align: center;">
+                    </div>
+                </td>
+                <td class="align-middle">${{formatPrice(item.product.price * item.quantity)}}</td>
+                <td class="align-middle">
+                    <button class="btn btn-danger btn-sm" (click)="deleteCart(item.product.id)">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4" class="text-end fw-bold align-middle">Total</td>
+            <td colspan="1" class="text-start fw-bold align-middle">${{formatPrice(total)}} CLP</td>
+        </tr>
+    </tfoot>
+</table>
