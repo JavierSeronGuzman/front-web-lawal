@@ -18,23 +18,23 @@ export class ProductService{
   ) { }
 
   getProducts(): Observable<Product[]>{
-    return this.http.get<Product[]>("http://ec2-18-217-74-222.us-east-2.compute.amazonaws.com:443/api/cotizacion/products ")
+    return this.http.get<Product[]>("https://ec2-18-217-74-222.us-east-2.compute.amazonaws.com:443/api/cotizacion/products ")
   }
   getProductsStars(): Observable<ProductStar[]>{
-    return this.http.get<ProductStar[]>("http://ec2-18-217-74-222.us-east-2.compute.amazonaws.com:443/api/extras/products ")
+    return this.http.get<ProductStar[]>("https://ec2-18-217-74-222.us-east-2.compute.amazonaws.com:443/api/extras/products ")
   }
   getBanner(): Observable<Banner[]>{
-    return this.http.get<Banner[]>("http://ec2-18-217-74-222.us-east-2.compute.amazonaws.com:443/api/images/banners ")
+    return this.http.get<Banner[]>("https://ec2-18-217-74-222.us-east-2.compute.amazonaws.com:443/api/images/banners ")
   }
   getAnuncios(): Observable<Anuncios[]>{
-    return this.http.get<Anuncios[]>("http://ec2-18-217-74-222.us-east-2.compute.amazonaws.com:443/api/images/anuncios ")
+    return this.http.get<Anuncios[]>("https://ec2-18-217-74-222.us-east-2.compute.amazonaws.com:443/api/images/anuncios ")
   }
 
   search(name: string): Observable<Product[]>{
-      return this.http.get<Product[]>(`http://ec2-18-217-74-222.us-east-2.compute.amazonaws.com:443/api/cotizacion/search?name=${name}`)
+      return this.http.get<Product[]>(`https://ec2-18-217-74-222.us-east-2.compute.amazonaws.com:443/api/cotizacion/search?name=${name}`)
     }
   
   getProduct(id:number): Observable<Product>{
-    return this.http.get<Product>(`http://ec2-18-217-74-222.us-east-2.compute.amazonaws.com:443/api/cotizacion/${id}`)
+    return this.http.get<Product>(`https://ec2-18-217-74-222.us-east-2.compute.amazonaws.com:443/api/cotizacion/${id}`)
   }
 }
