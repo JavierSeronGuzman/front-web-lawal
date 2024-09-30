@@ -23,6 +23,7 @@ export class NavbarComponent implements OnInit{
   items: Item[] = [];
   products: Product[] = [];
   name!: string;
+  showBar = false;
 
   constructor(private sharingDataService: SharingDataService,private service: ProductService,
     private store: Store<{items: ItemState}>
@@ -34,6 +35,7 @@ export class NavbarComponent implements OnInit{
   }
   ngOnInit(): void {
     this.search();
+    this.navBar();
   }
 
   openCart(): void{
@@ -73,6 +75,15 @@ export class NavbarComponent implements OnInit{
         }
       );
     });
+  }
+
+  closeBar(): void {
+    this.showBar = !this.showBar;
+  }
+  navBar(): void {
+    this.sharingDataService.closenav.subscribe(() => {
+      this.showBar = !this.showBar;
+    })
   }
   
 }

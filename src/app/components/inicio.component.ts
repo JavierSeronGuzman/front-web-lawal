@@ -9,11 +9,13 @@ import { SharingDataService } from '../services/sharing-data.service';
 import { Store } from '@ngrx/store';
 import { ItemState } from '../store/items.reducers';
 import { add, moreTotal, remove, total } from '../store/items.actions';
+import { AboutusComponent } from './aboutus/aboutus.component';
+import { MapComponent } from './map/map.component';
 
 @Component({
   selector: 'app-inicio',
   standalone: true,
-  imports: [RouterOutlet,NavbarComponent,CartModalComponent,FooterComponent
+  imports: [RouterOutlet,NavbarComponent,CartModalComponent,FooterComponent,AboutusComponent,MapComponent
   ],
   templateUrl: './inicio.component.html'
 })

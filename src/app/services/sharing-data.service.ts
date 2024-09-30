@@ -24,9 +24,13 @@ export class SharingDataService {
   private _subEventEmitter: EventEmitter<string[]> = new EventEmitter();
   private _searchEventEmitter: EventEmitter<string> = new EventEmitter();
   private _getProduct: EventEmitter<Product[]> = new EventEmitter();
+  private _closenav: EventEmitter<void> = new EventEmitter();
 
   constructor() { }
 
+  get closenav(): EventEmitter<void>{
+    return this._closenav;
+  }
   get productEventEmitter(): EventEmitter<ProductEvent>{
     return this._productEventEmitter;
   }

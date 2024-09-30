@@ -75,5 +75,8 @@ export class CategoriasComponent{
 
     },0.5);
   }
+  closeBar(): void {
+    this.sharingDataService.closenav.emit();
+  }
 
 }

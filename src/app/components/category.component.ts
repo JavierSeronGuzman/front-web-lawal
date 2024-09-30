@@ -11,7 +11,7 @@ import { MapComponent } from './map/map.component';
 @Component({
   selector: 'app-category',
   standalone: true,
-  imports: [RouterOutlet,CommonModule,AboutusComponent,MapComponent, RouterModule],
+  imports: [CommonModule,AboutusComponent,MapComponent, RouterModule],
   templateUrl: './category.component.html'
 })
 export class CategoryComponent implements OnInit{

@@ -3,5 +3,23 @@
   <app-cart-modal></app-cart-modal>
 }
 <router-outlet></router-outlet>
+    <!-- Botón de WhatsApp -->
+    <a href="https://web.whatsapp.com/send?phone=56967453739" class="whatsapp-button" target="_blank">
+      <i class="fab fa-whatsapp fa-2x"></i>
+    </a>
+    <a href="https://web.whatsapp.com/send?phone=56967453739" class="msg-button" target="_blank">
+      ¿Necesitas ayuda?
+    </a>
+  <!-- Contenedor para Mapa y About Us -->
+  <div  style="margin-top:  60px; background-color: #2510a3;">
+    <div class="row">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-6 ">
+        <app-aboutus></app-aboutus>
+      </div>
+      <div id="map" class="col-12 col-sm-12 col-md-12 col-lg-6 p-3 d-flex align-items-center justify-content-center container rounded">
+        <app-map></app-map>
+      </div>
+    </div>
+  </div>
 
 <app-footer></app-footer>
