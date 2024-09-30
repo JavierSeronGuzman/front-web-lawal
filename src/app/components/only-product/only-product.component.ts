@@ -38,6 +38,9 @@ export class OnlyProductComponent implements OnInit{
     this.selectedId =  JSON.parse(sessionStorage.getItem('selectProduct') || '0');
     this.sharingDataService.getProduct.subscribe(products => {
       this.products = products
+      console.log(this.products);
+      this.sortProducts();
+      console.log(this.products);
       this.selectedId = this.products[0].id;
       this.saveSession();
     })
@@ -73,5 +76,9 @@ export class OnlyProductComponent implements OnInit{
   }
   openCart(): void{
     this.sharingDataService.openEventEmitter.emit();
+  }
+
+  sortProducts():void{
+   this.products = this.products.sort((a,b) => a.price - b.price);
   }
 }

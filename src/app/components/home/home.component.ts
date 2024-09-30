@@ -80,7 +80,6 @@ export class HomeComponent implements OnInit{
   
     this.groupedProducts = orderedGroupedProducts;
   
-    console.log(this.groupedProducts);
   }
 
   getCategoryKeys(): string[] {
