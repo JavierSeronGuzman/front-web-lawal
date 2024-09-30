@@ -8,7 +8,8 @@ import { CommonModule } from '@angular/common';
   selector: 'app-ofertas',
   standalone: true,
   imports: [RouterModule,CommonModule],
-  templateUrl: './ofertas.component.html'
+  templateUrl: './ofertas.component.html',
+  styleUrl: './ofertas.component.css'
 })
 export class OfertasComponent implements OnInit{
 

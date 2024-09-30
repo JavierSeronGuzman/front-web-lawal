@@ -11,16 +11,16 @@
             }
         </div>
     </div> 
-    <div class="d-block d-md-none">
-      <div class="row flex-nowrap overflow-auto" style="white-space: nowrap;">
-          @for (anuncio of anuncios; track $index) {
-              <div class="col-6 d-inline-block" style="width: 50%;">
-                  <img src="{{anuncio.img}}" class="img-fluid rounded" role="button" 
-                  [routerLink]="['/catalog']" alt="..." style="width: 100%; height: auto;">
-              </div>
-          }
-      </div>
-  </div>
+<div class="d-block d-md-none">
+    <div class="row flex-nowrap overflow-auto" style="white-space: nowrap;">
+        @for (anuncio of anuncios; track $index) {
+            <div class="col-6 d-inline-block" style="width: 50%; margin-right: -15px;">
+                <img src="{{anuncio.img}}" class="img-fluid rounded" role="button" 
+                [routerLink]="['/catalog']" alt="..." style="width: 100%; height: auto;">
+            </div>
+        }
+    </div>
+</div>
   
     <!-- Carrusel visible solo en pantallas pequeñas -->
     <!--<div id="carouselExampleControls" class="carousel slide d-block d-md-none" data-bs-ride="carousel">
