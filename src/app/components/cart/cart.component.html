@@ -7,10 +7,10 @@
 
     </div>
     @for (item of items;track $index) {
-        <div [ngClass]="{'bg-white': $index % 2 === 0, 'bg-custom-light': $index % 2 !== 0}" class="row py-1">
-        <div class="col-3">{{item.product.name}} {{item.product.medida}}</div>
-        <div class="col-2">${{formatPrice(item.product.price)}}</div>
-        <div class="col-3">
+        <div class="row py-1">
+        <div [ngClass]="{'bg-white': $index % 2 === 0, 'bg-custom-light': $index % 2 !== 0}" class="col-3">{{item.product.name}} {{item.product.medida}}</div>
+        <div [ngClass]="{'bg-white': $index % 2 === 0, 'bg-custom-light': $index % 2 !== 0}" class="col-2 d-flex align-items-center">${{formatPrice(item.product.price)}}</div>
+        <div [ngClass]="{'bg-white': $index % 2 === 0, 'bg-custom-light': $index % 2 !== 0}" class="col-3 d-flex align-items-center">
             <div class="btn-group btn-group-sm">
                 <input type="number" class="form-control mx-1" [(ngModel)]="item.quantity"
                    (ngModelChange)="addCart(item.product.id, $event)"
@@ -18,8 +18,8 @@
                    style="width: 75px; text-align: center;">
             </div>
         </div>
-        <div class="col-3">${{formatPrice(item.product.price * item.quantity)}}</div>
-        <div class="col-1">
+        <div [ngClass]="{'bg-white': $index % 2 === 0, 'bg-custom-light': $index % 2 !== 0}" class="col-3 d-flex align-items-center">${{formatPrice(item.product.price * item.quantity)}}</div>
+        <div class="col-1 d-flex align-items-center">
             <button class="btn btn-danger btn-sm" (click)="deleteCart(item.product.id)" style="margin-left: 10px;">
                 <i class="fa-solid fa-trash"></i>
             </button>
