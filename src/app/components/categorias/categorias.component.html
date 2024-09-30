@@ -1,21 +1,26 @@
-<ul class="dropdown-menu">
-  <li class="dropend">
-    <a class="dropdown-item" id="dropdownSubMenu" data-bs-toggle="dropdown" aria-expanded="false"
-    [routerLink]="['/catalog']" (click)="sub('todo','todo')">
-      Todos los Productos
-    </a>
-  </li>
-  @for (category of getCategoryKeys(); track $index) {
+<div class="container">
+
+  <ul class="dropdown-menu">
     <li class="dropend">
-      <a class="dropdown-item dropdown-toggle" id="dropdownSubMenu" data-bs-toggle="dropdown" aria-expanded="false"
-      [routerLink]="['/catalog']" (click)="sub(category,'todo')">
-        {{category}}
+      <a class="dropdown-item" id="dropdownSubMenu" data-bs-toggle="dropdown" aria-expanded="false"
+      [routerLink]="['/catalog']" (click)="sub('todo','todo')" style="font-weight: bold;">
+        Todos los Productos
       </a>
-      <ul class="dropdown-menu" aria-labelledby="dropdownSubMenu">
-        @for (subcategory of getSubcategoryKeys(category); track $index) {
-          <li><a class="dropdown-item" [routerLink]="['/catalog']" (click)="sub(category,subcategory)">{{subcategory}}</a></li>
-        }
-      </ul>
     </li>
-  }
-</ul>
+    @for (category of getCategoryKeys(); track $index) {
+      <li class="dropend">
+        @for (subcategory of getSubcategoryKeys(category); track $index) {
+        <a [ngClass]="category !== subcategory ? 'dropdown-item dropdown-toggle' : 'dropdown-item'" id="dropdownSubMenu" data-bs-toggle="dropdown" aria-expanded="false" style="font-weight: bold;"
+        [routerLink]="['/catalog']" (click)="sub(category,'todo')">
+          {{category}}
+        </a>
+          @if(category != subcategory){
+            <ul class="dropdown-menu " aria-labelledby="dropdownSubMenu">
+                <li><a class="dropdown-item" [routerLink]="['/catalog']" (click)="sub(category,subcategory)">{{subcategory}}</a></li>
+              </ul>
+          }
+        }
+      </li>
+    }
+  </ul>
+</div>

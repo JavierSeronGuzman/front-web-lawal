@@ -1,53 +1,123 @@
-<div class="container" style="margin-top: 100px; margin-bottom: 100px;">
-    <div class="row d-flex justify-content-center">
-        <!-- Imagen ocupando la mitad del contenedor -->
-        @for (product of products; track $index) {
-            @if(product.id == selectedId){
-                <div class="col-4 mx-5">
-                    <img src="{{product.imagen}}" alt="" style="width: 100%; height: auto;">
-                </div>
-                <!-- La otra mitad se divide en dos -->
-                <div class="col-3 mx-5">
-                    <div class="row">
-                        <!-- Parte superior: nombre y descripción -->
-                        <div class="col-12">
-                            <h2>{{product.name}}</h2>
-                            <h6>{{product.description}}</h6>
-                        </div>
+<div class="d-none d-lg-block">
+
+    <div class="container" style="margin-top: 100px; margin-bottom: 100px;">
+        <div class="row d-flex justify-content-center">
+            <!-- Imagen ocupando la mitad del contenedor -->
+            @for (product of products; track $index) {
+                @if(product.id == selectedId){
+                    <div class="col-4 mx-5">
+                        <img src="{{product.imagen}}" alt="" style="width: 100%; height: auto;">
                     </div>
-                    <!-- Parte inferior: cartas y botón -->
-                    <div class="row mt-4">
-                        <div class="col-12">
-                            <div class="row">
-                                @for (product of products; track $index) {
-                                    <div class="col-3">
-                                        <div [className]="selectedId == product.id ? 'card border-primary' : 'card border-secondary'" role="button" (click)="selected(product.id)"
-                                        style="width: 75px; height: 50px;">
-                                            <div class="card-body d-flex justify-content-center align-items-center">
-                                                <h6>{{product.medida}}</h6>
+                    <!-- La otra mitad se divide en dos -->
+                    <div class="col-3 mx-5">
+                        <div class="row">
+                            <!-- Parte superior: nombre y descripción -->
+                            <div class="col-12">
+                                <h2>{{product.name}}</h2>
+                                <h6>{{product.description}}</h6>
+                            </div>
+                        </div>
+                        <!-- Parte inferior: cartas y botón -->
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="row">
+                                    @for (product of products; track $index) {
+                                        <div class="col-3">
+                                            <div [className]="selectedId == product.id ? 'card border-primary' : 'card border-secondary'" role="button" (click)="selected(product.id)"
+                                            style="width: 75px; height: auto;">
+                                                <div class="card-body d-flex justify-content-center align-items-center">
+                                                    <h6>{{product.medida}}</h6>
+                                                </div>
                                             </div>
+                                            <!-- <h5>{{selectedId}}</h5> -->
                                         </div>
-                                        <!-- <h5>{{selectedId}}</h5> -->
-                                    </div>
-                                }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-4" style="margin-left: 25px;">
+                            <div class="d-flex align-items-center">
+                                <h2 style="color: blue; margin-right: 5px;">${{product.price}}</h2>
+                                <span>/unidad</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Botón de añadir al carrito -->
+                        <div class="row mt-4" style="margin-left: 25px;">
+                            <div class="col-6">
+                                <div class="btn-group btn-group-lg">
+                                    <input type="number" class="form-control mx-2" [(ngModel)]="qcompras" style="width: 100px; text-align: center;">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <button class="btn btn-primary" (click)="addCart()">
+                                    <i class="fa-solid fa-cart-shopping fa-lg" style="color: #f7f7f7;"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
-                    <!-- Botón de añadir al carrito -->
-                    <div class="row mt-4" style="margin-left: 25px;">
-                        <div class="col-6">
-                            <div class="btn-group btn-group-lg">
-                                <input type="number" class="form-control mx-2" [(ngModel)]="qcompras" style="width: 100px; text-align: center;">
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <button class="btn btn-primary" (click)="addCart()">
-                                <i class="fa-solid fa-cart-shopping fa-lg" style="color: #f7f7f7;"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                }
             }
-        }
+        </div>
     </div>
+</div>
+<div class="d-block d-lg-none">
+    <div class="container" style="margin-top: 100px; margin-bottom: 100px;">
+        <div class="row d-flex justify-content-center">
+            <!-- Imagen ocupando la mitad del contenedor -->
+            @for (product of products; track $index) {
+                @if(product.id == selectedId){
+                    <h2>{{product.name}}</h2>
+                    <h6>{{product.description}}</h6>
+                    <div class="col-12 mx-5">
+                        <img src="{{product.imagen}}" alt="" style="width: 100%; height: auto;">
+                    </div>
+                    <!-- La otra mitad se divide en dos -->
+                    <div class="col-12 mx-5">
+                        <!-- Parte inferior: cartas y botón -->
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="row">
+                                    @for (product of products; track $index) {
+                                        <div class="col-3">
+                                            <div [className]="selectedId == product.id ? 'card border-primary' : 'card border-secondary'" role="button" (click)="selected(product.id)"
+                                            style="width: 75px; height: auto;">
+                                                <div class="card-body d-flex justify-content-center align-items-center">
+                                                    <h6>{{product.medida}}</h6>
+                                                </div>
+                                            </div>
+                                            <!-- <h5>{{selectedId}}</h5> -->
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Centrar el precio -->
+                        <div class="row mt-4 d-flex justify-content-center align-items-center">
+                            <div class="d-flex align-items-center">
+                                <h2 style="color: blue; margin-right: 5px;">${{product.price}}</h2>
+                                <span>/unidad</span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+    <!-- Navbar en la parte inferior para cantidad y botón -->
+    <nav class="navbar fixed-bottom bg-body-tertiary">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <!-- Input para cantidad -->
+                <input type="number" class="form-control mx-2" [(ngModel)]="qcompras" style="width: 100px; text-align: center;">
+            </div>
+            <!-- Botón de añadir al carrito -->
+            <button class="btn btn-primary" (click)="addCart()">
+                <i class="fa-solid fa-cart-shopping fa-lg" style="color: #f7f7f7;"></i> Añadir al carrito
+            </button>
+        </div>
+    </nav>
 </div>

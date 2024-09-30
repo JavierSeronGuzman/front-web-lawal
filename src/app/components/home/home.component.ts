@@ -115,5 +115,14 @@ export class HomeComponent implements OnInit{
       this.sharingDataService.getProduct.emit(product);
     })
   }
+  getMaxMin(name: string, category: string, subcategory:string): { min: number, max: number }{
+    const hola = this.products.filter(product => product.name === name);
+    const prices = hola.map(precio => precio.price)
+    
+    return {
+      min: Math.min(...prices),
+      max: Math.max(...prices)
+    };
+  }
   
 }

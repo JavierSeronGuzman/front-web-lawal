@@ -4,11 +4,12 @@ import { Product } from '../../models/product';
 import { ProductService } from '../../services/product.service';
 import { GroupedProducts } from '../../models/groupedProducts';
 import { SharingDataService } from '../../services/sharing-data.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-categorias',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, CommonModule],
   templateUrl: './categorias.component.html',
   styleUrl: './categorias.component.css'
 })

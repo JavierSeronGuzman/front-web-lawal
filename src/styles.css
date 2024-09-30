@@ -121,7 +121,7 @@
 .dropdown-menu .dropdown-menu {
   display: none;
   position: absolute;
-  left: 100%; /* Ajusta esto para la posición horizontal */
+  left: 13%; /* Ajusta esto para la posición horizontal */
   top: 0;
   margin-top: -1px;
 }
@@ -139,7 +139,7 @@
   }
 
   .dropdown-menu .dropdown-menu {
-    left: 45%; /* Muestra el submenú hacia la izquierda */
+    left: 50%; /* Muestra el submenú hacia la izquierda */
     top: 0%; /* Ajusta la posición vertical si es necesario */
   }
 }
@@ -222,7 +222,17 @@
   color: blue;
   margin-top: -10px;
 }
+.priceMobile {
+  font-size: 15px;
+  font-weight: bolder;
+  color: blue;
+  margin-top: -15px;
+}
 .descripcion{
+  margin-top: -10px;
+}
+.descripcionMobile{
+  font-size: 15px;
   margin-top: -10px;
 }
 
@@ -244,4 +254,10 @@ span.mx-2 {
 .btn-success[disabled] {
   pointer-events: none; /* Evita que el botón reciba clics */
   opacity: 1; /* Cambia la opacidad para dar una indicación visual de que está deshabilitado */
+}
+
+/* Estilo del enlace de la categoría */
+.nosotros:hover{
+  color: #fff;
+  text-decoration: underline; /* Subrayado del texto */
 }

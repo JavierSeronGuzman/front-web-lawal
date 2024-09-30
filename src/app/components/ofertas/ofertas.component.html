@@ -10,9 +10,21 @@
                 </div>
             }
         </div>
-    </div>
+    </div> 
+    <div class="d-block d-md-none">
+      <div class="row justify-content-center">
+          @for (anuncio of anuncios; track $index) {
+              <div class="col-6 col-sm-4 col-md-3 d-flex justify-content-center mb-3">
+                  <img src="{{anuncio.img}}" class="img-fluid rounded" role="button"
+                  [routerLink]="['/catalog']" 
+                  style="width: 100%; max-width: 150px; height: auto;" alt="...">
+              </div>
+          }
+      </div>
+  </div>
+  
     <!-- Carrusel visible solo en pantallas pequeñas -->
-    <div id="carouselExampleControls" class="carousel slide d-block d-md-none" data-bs-ride="carousel">
+    <!--<div id="carouselExampleControls" class="carousel slide d-block d-md-none" data-bs-ride="carousel">
         
         <div class="carousel-inner">
           @for (anuncio of anuncios; track $index) {
@@ -40,5 +52,5 @@
             <button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="1" aria-label="Slide 2"></button>
             <button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="2" aria-label="Slide 3"></button>
         </div>
-</div>
+</div> -->
 </div>

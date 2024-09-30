@@ -8,11 +8,12 @@ import { ItemState } from '../../store/items.reducers';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CategoriasComponent,RouterModule, FormsModule],
+  imports: [CategoriasComponent,RouterModule, FormsModule,CommonModule],
   templateUrl: './navbar.component.html'
 })
 export class NavbarComponent implements OnInit{

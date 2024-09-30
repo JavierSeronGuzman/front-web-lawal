@@ -1,0 +1,4 @@
+.dropdown-item, .dropdown-toggle {
+    color: inherit;  /* Hereda el color del elemento padre o define el tuyo */
+    text-decoration: none;  /* Quita el subrayado */
+}

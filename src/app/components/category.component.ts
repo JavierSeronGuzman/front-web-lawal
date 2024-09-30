@@ -79,7 +79,6 @@ export class CategoryComponent implements OnInit{
   
     this.groupedProducts = orderedGroupedProducts;
   
-    console.log(this.groupedProducts);
   }
   
 
@@ -107,9 +106,18 @@ export class CategoryComponent implements OnInit{
 
   getProduct(name: string): void{
     this.service.search(name).subscribe(product =>{
-      console.log(product)
       this.sharingDataService.getProduct.emit(product);
     })
+  }
+
+  getMaxMin(name: string, category: string, subcategory:string): { min: number, max: number }{
+    const hola = this.products.filter(product => product.name === name);
+    const prices = hola.map(precio => precio.price)
+    
+    return {
+      min: Math.min(...prices),
+      max: Math.max(...prices)
+    };
   }
 
   

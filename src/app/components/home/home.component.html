@@ -49,58 +49,48 @@
     }
   </div>
   <div class="d-block d-lg-none">
-      
-      @for (category of getCategoryKeys(); track $index){
-      <div class="d-flex justify-content-center">
-        <h1 style="color: #2510a3;">{{category}}</h1>
-      </div>
-      @for (subcategory of getSubcategoryKeys(category); track $index){
-  
-        <div class="d-flex justify-content-center" style="margin-top: -15px;">
-          {{subcategory}}
-        </div>  
-        <div id="carouselExample" class="carousel slide">
-          <div class="carousel-inner">
-            <!-- Contenedor para Cards -->
-            <div class="container my-4">
+    @for (category of getCategoryKeys(); track $index) {
+        <div class="container my-4">
+          <h1 class="d-flex justify-content-center" style="color: #2510a3;" id="{{category}}">{{category}}</h1>
+          @for (subcategory of getSubcategoryKeys(category); track $index) {
+                <h3 class="my-3" id="{{subcategory}}">{{subcategory}}</h3>
               <div class="row">
-                @for (product of groupedProducts[category][subcategory]; track $index){
-          <div class="carousel-item" [ngClass]="{'active': product.id === groupedProducts[category][subcategory][0].id}" >
-  
-            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-              <div class="card carta my-2">
-                  <img src="{{product.imagen}}" class="card-img-top img" alt="...">
-                  <div class="car-body m-2">
-                      <h5 class="card-title">{{product.name}}</h5>
-                      <p class="card-text descripcion">{{product.description}}</p>
-                      <p class="card-text price">${{formatPrice(product.price)}}
-        
-                      </p>
-                      <div class="d-flex justify-content-center">
-                        <button class="btn btn-primary btn-custom-size mx-2" [routerLink]="['/product']" (click)="getProduct(product.name)">Ver producto</button>
+              @for (product of groupedProducts[category][subcategory]; track $index) {
+                  <!-- Hacemos las columnas responsivas -->
+                  <div class="col-6 col-md-4 col-lg-3 my-2">
+                      <!-- Aseguramos que todas las tarjetas tengan la misma altura -->
+                      <div class="card carta my-2 d-flex flex-column h-100">
+                          <img src="{{product.imagen}}" class="card-img-top img" alt="...">
+                          <!-- El cuerpo de la tarjeta se estira para ocupar el espacio restante -->
+                          <div class="car-body m-2 d-flex flex-column justify-content-between">
+                              <h5 class="card-title">{{product.name}}</h5>
+                              <!-- Limitamos la altura del texto con una clase personalizada -->
+                              <p class="card-text descripcion" style="max-height: 3rem; overflow: hidden;">
+                                {{product.description}}
+                              </p>
+                              <p class="card-text priceMobile" *ngIf="getMaxMin(product.name, product.category, product.subcategory).min === getMaxMin(product.name, product.category, product.subcategory).max">
+                                ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).min)}}
+                              </p>
+                              <p class="card-text priceMobile" *ngIf="getMaxMin(product.name, product.category, product.subcategory).min !== getMaxMin(product.name, product.category, product.subcategory).max">
+                                ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).min)}} - ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).max)}}
+                              </p>
+                            </div>
+                            <div class=" card-footer d-flex justify-content-center mt-auto">
+                              <button class="btn btn-primary btn-custom-size mx-2" 
+                              *ngIf="getMaxMin(product.name, product.category, product.subcategory).min == getMaxMin(product.name, product.category, product.subcategory).max" 
+                              [routerLink]="['/product']" (click)="getProduct(product.name)">Ver producto</button>
+                              <button class="btn btn-primary btn-custom-size mx-2" 
+                              *ngIf="getMaxMin(product.name, product.category, product.subcategory).min !== getMaxMin(product.name, product.category, product.subcategory).max" 
+                              [routerLink]="['/product']" (click)="getProduct(product.name)">Ver productos</button>
+                            </div>
                       </div>
-                                 
-                   </div>
+                  </div>
+                }
               </div>
-          </div>
+            
+          }
         </div>
-        }
-      </div>
-            </div>
-  
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true" style="background-color: rgba(0, 0, 0, 0.5);
-            border-radius: 25%;"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true" style="background-color: rgba(0, 0, 0, 0.5);
-            border-radius: 25%;"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div>
-      }
+      
     }
   </div>
     

@@ -69,5 +69,9 @@ export class OnlyProductComponent implements OnInit{
 
       }
     }
+    this.openCart();
+  }
+  openCart(): void{
+    this.sharingDataService.openEventEmitter.emit();
   }
 }
