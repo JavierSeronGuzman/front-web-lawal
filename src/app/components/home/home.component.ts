@@ -12,15 +12,18 @@ import { GroupedProducts } from '../../models/groupedProducts';
 import { ProductService } from '../../services/product.service';
 import { GroupedProductsStar } from '../../models/groupedProductsStar';
 import { Product } from '../../models/product';
+import { LoaderComponent } from '../loader/loader.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterOutlet,BannerComponent,OfertasComponent,CardsComponent,AboutusComponent,MapComponent, CommonModule, RouterModule
+  imports: [RouterOutlet,BannerComponent,OfertasComponent,CardsComponent,AboutusComponent,MapComponent, CommonModule, RouterModule, LoaderComponent
   ],
   templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit{
+
+  isLoading = true;
 
   products: ProductStar[] = [];
   groupedProducts: GroupedProductsStar= {};
@@ -32,6 +35,7 @@ export class HomeComponent implements OnInit{
     this.service.getProductsStars().subscribe(products =>{
       this.products = products;
       this.group();
+      this.isLoading = false;
     })
         // Scroll al inicio cuando la aplicación carga o la página se refresca
     window.scrollTo(1, 1);

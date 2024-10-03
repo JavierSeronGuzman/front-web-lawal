@@ -5,13 +5,11 @@ import { routes } from './app.routes';
 import { provideStore } from '@ngrx/store';
 import { itemReducer } from './store/items.reducers';
 import { provideEffects } from '@ngrx/effects';
-import { ProductsEffects } from './store/effects/products.effects';
 import { productsReducer } from './store/products.reducer';
 import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideStore({ items: itemReducer,
-    products: productsReducer
-   }), provideEffects(
+    products: productsReducer}), provideEffects(
   ), provideHttpClient()]
 };

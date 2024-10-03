@@ -1,7 +1,17 @@
-    <!-- Botón de WhatsApp -->
-    <a href="https://web.whatsapp.com/send?phone=56967453739" class="whatsapp-button" target="_blank">
-        <i class="fab fa-whatsapp fa-2x"></i>
-      </a>
-      <a href="https://web.whatsapp.com/send?phone=56967453739" class="msg-button" target="_blank">
-        ¿Necesitas ayuda?
-      </a>
+    <!-- Mostrar el loader si isLoading es true -->
+<div *ngIf="isLoading">
+  <app-loader></app-loader>
+</div>
+
+<!-- Mostrar los productos cuando isLoading es false -->
+<div *ngIf="!isLoading">
+  <!-- El código que muestra los productos va aquí -->
+  <!-- Botón de WhatsApp -->
+  <a href="https://web.whatsapp.com/send?phone=56967453739" class="whatsapp-button" target="_blank">
+      <i class="fab fa-whatsapp fa-2x"></i>
+    </a>
+    <a href="https://web.whatsapp.com/send?phone=56967453739" class="msg-button" target="_blank">
+      ¿Necesitas ayuda?
+    </a>
+</div>
+

@@ -52,7 +52,7 @@ export class PayComponent {
         total:  this.total
       }
        // Hacer la solicitud POST al backend
-    this.http.post("http://localhost:8080/api/cotizacion/guardar", this.cotizacion)
+    this.http.post("http://localhost:8080", this.cotizacion)
     .subscribe(
         response => {
             Swal.fire({

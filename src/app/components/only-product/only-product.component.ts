@@ -6,11 +6,12 @@ import { FormsModule } from '@angular/forms';
 import { Item } from '../../models/cartItem';
 import { ItemState } from '../../store/items.reducers';
 import { Store } from '@ngrx/store';
+import { LoaderComponent } from '../loader/loader.component';
 
 @Component({
   selector: 'app-only-product',
   standalone: true,
-  imports: [ CommonModule, FormsModule],
+  imports: [ CommonModule, FormsModule, LoaderComponent],
   templateUrl: './only-product.component.html',
   styleUrl: './only-product.component.css'
 })
@@ -24,6 +25,7 @@ export class OnlyProductComponent implements OnInit{
   qcompras = 1;
   items: Item[] = [];
   item!: Item | undefined;
+  isLoading = true;
 
   constructor(private sharingDataService: SharingDataService,
     private store: Store<{items: ItemState}>
@@ -43,6 +45,7 @@ export class OnlyProductComponent implements OnInit{
       console.log(this.products);
       this.selectedId = this.products[0].id;
       this.saveSession();
+      this.isLoading = false;
     })
   }
 

@@ -7,11 +7,12 @@ import { CommonModule, NgClass, ViewportScroller } from '@angular/common';
 import { GroupedProducts } from '../models/groupedProducts';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { MapComponent } from './map/map.component';
+import { LoaderComponent } from './loader/loader.component';
 
 @Component({
   selector: 'app-category',
   standalone: true,
-  imports: [CommonModule,AboutusComponent,MapComponent, RouterModule],
+  imports: [CommonModule,AboutusComponent,MapComponent, RouterModule, LoaderComponent],
   templateUrl: './category.component.html'
 })
 export class CategoryComponent implements OnInit{
@@ -20,6 +21,7 @@ export class CategoryComponent implements OnInit{
   groupedProducts: GroupedProducts= {};
   subcategoryToScroll!: string[];  
   productos: Product[] = [];
+  isLoading = true;
 
   constructor(
     private service: ProductService,
@@ -31,6 +33,7 @@ export class CategoryComponent implements OnInit{
     this.service.getProducts().subscribe(products => {
       this.products = products;
       this.group();
+      this.isLoading = false;
     });
     // Scroll al inicio cuando la aplicación carga o la página se refresca
     window.scrollTo(1, 1);

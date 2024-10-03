@@ -261,3 +261,10 @@ span.mx-2 {
   color: #fff;
   text-decoration: underline; /* Subrayado del texto */
 }
+.card-title {
+  white-space: normal; /* Permite el ajuste de líneas */
+  overflow: hidden;    /* Evita desbordamiento */
+  text-overflow: ellipsis; /* Agrega "..." al final si es necesario */
+  word-wrap: break-word;  /* Rompe la palabra si es muy larga */
+}
+

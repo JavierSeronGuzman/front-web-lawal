@@ -1,5 +1,5 @@
 import {Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { NavigationEnd, NavigationStart, Router, RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { CartModalComponent } from './cart-modal/cart-modal.component';
@@ -11,6 +11,7 @@ import { ItemState } from '../store/items.reducers';
 import { add, moreTotal, remove, total } from '../store/items.actions';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { MapComponent } from './map/map.component';
+import { LoaderComponent } from './loader/loader.component';
 
 @Component({
   selector: 'app-inicio',
@@ -29,16 +30,19 @@ export class InicioComponent implements OnInit {
 
   itemTotal!:number;
 
+  isLoading!: boolean;
+
   constructor(private service: ProductService,
     private store: Store<{items: ItemState}>,
-      private sharingDataService: SharingDataService
+      private sharingDataService: SharingDataService,
   ){
     this.store.select('items').subscribe(state => {
       this.items = state.items;
       this.total = state.total;
       this.itemTotal = state.itemTotal;
       this.saveSession();
-    })
+    });
+
   }
 
   ngOnInit(): void {

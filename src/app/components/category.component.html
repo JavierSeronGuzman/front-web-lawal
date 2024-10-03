@@ -1,106 +1,111 @@
-<div style="margin-top: 100px;">
-  <div class="d-none d-lg-block">
+<!-- Mostrar el loader si isLoading es true -->
+<div *ngIf="isLoading">
+  <app-loader></app-loader>
+</div>
 
-    @for (category of getCategoryKeys(); track $index) {
-      @if((category == subcategoryToScroll[0]) || ('todo' == subcategoryToScroll[0])){
-        <div class="container my-4">
-          <h1 class="d-flex justify-content-center" style="color: #2510a3;" id="{{category}}">{{category}}</h1>
-          @for (subcategory of getSubcategoryKeys(category); track $index) {
-            @if ((subcategory == subcategoryToScroll[1]) || ('todo' == subcategoryToScroll[1])) {
-              @if (category != subcategory) {
-                <h3 class="my-3" id="{{subcategory}}">{{subcategory}}</h3>
+<!-- Mostrar los productos cuando isLoading es false -->
+<div *ngIf="!isLoading">
+ 
+  <div style="margin-top: 100px;">
+    <div class="d-none d-lg-block">
+  
+      @for (category of getCategoryKeys(); track $index) {
+        @if((category == subcategoryToScroll[0]) || ('todo' == subcategoryToScroll[0])){
+          <div class="container my-4">
+            <h1 class="d-flex justify-content-center" style="color: #2510a3;" id="{{category}}">{{category}}</h1>
+            @for (subcategory of getSubcategoryKeys(category); track $index) {
+              @if ((subcategory == subcategoryToScroll[1]) || ('todo' == subcategoryToScroll[1])) {
+                @if (category != subcategory) {
+                  <h3 class="my-3" id="{{subcategory}}">{{subcategory}}</h3>
+                }
+                <div class="row">
+                @for (product of groupedProducts[category][subcategory]; track $index) {
+        
+                    <div class="col-3">
+                        <div class="card carta my-2">
+                            <img src="{{product.imagen}}" class="card-img-top img" alt="...">
+                            <div class="car-body m-2">
+                                <h5 class="card-title">{{product.name}}</h5>
+                                <p class="card-text descripcion">{{product.description}}</p>
+                                <p class="card-text price" *ngIf="getMaxMin(product.name, product.category, product.subcategory).min === getMaxMin(product.name, product.category, product.subcategory).max">
+                                  ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).min) }}
+                                </p>
+                                <p class="card-text price" *ngIf="getMaxMin(product.name, product.category, product.subcategory).min !== getMaxMin(product.name, product.category, product.subcategory).max">
+                                  ${{ formatPrice(getMaxMin(product.name, product.category, product.subcategory).min) }} - ${{ formatPrice(getMaxMin(product.name, product.category, product.subcategory).max) }}
+                                </p>
+                                <div class="d-flex justify-content-center">
+                                  <button class="btn btn-primary btn-custom-size mx-2" 
+                                  *ngIf="getMaxMin(product.name, product.category, product.subcategory).min == getMaxMin(product.name, product.category, product.subcategory).max" 
+                                  [routerLink]="['/product']" (click)="getProduct(product.name)">Ver producto</button>
+                                  <button class="btn btn-primary btn-custom-size mx-2" 
+                                  *ngIf="getMaxMin(product.name, product.category, product.subcategory).min !== getMaxMin(product.name, product.category, product.subcategory).max" 
+                                  [routerLink]="['/product']" (click)="getProduct(product.name)">Ver productos</button>
+                                </div>
+                                           
+                             </div>
+                        </div>
+                    </div>
+                  }
+                </div>
               }
-              <div class="row">
-              @for (product of groupedProducts[category][subcategory]; track $index) {
-      
-                  <div class="col-3">
-                      <div class="card carta my-2">
-                          <img src="{{product.imagen}}" class="card-img-top img" alt="...">
-                          <div class="car-body m-2">
-                              <h5 class="card-title">{{product.name}}</h5>
-                              <p class="card-text descripcion">{{product.description}}</p>
-                              <p class="card-text price" *ngIf="getMaxMin(product.name, product.category, product.subcategory).min === getMaxMin(product.name, product.category, product.subcategory).max">
-                                ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).min) }}
-                              </p>
-                              <p class="card-text price" *ngIf="getMaxMin(product.name, product.category, product.subcategory).min !== getMaxMin(product.name, product.category, product.subcategory).max">
-                                ${{ formatPrice(getMaxMin(product.name, product.category, product.subcategory).min) }} - ${{ formatPrice(getMaxMin(product.name, product.category, product.subcategory).max) }}
-                              </p>
-                              <div class="d-flex justify-content-center">
-                                <button class="btn btn-primary btn-custom-size mx-2" 
-                                *ngIf="getMaxMin(product.name, product.category, product.subcategory).min == getMaxMin(product.name, product.category, product.subcategory).max" 
-                                [routerLink]="['/product']" (click)="getProduct(product.name)">Ver producto</button>
-                                <button class="btn btn-primary btn-custom-size mx-2" 
-                                *ngIf="getMaxMin(product.name, product.category, product.subcategory).min !== getMaxMin(product.name, product.category, product.subcategory).max" 
-                                [routerLink]="['/product']" (click)="getProduct(product.name)">Ver productos</button>
+              }
+          </div>
+        }
+      }
+    </div>
+    <div class="d-block d-lg-none">
+      @for (category of getCategoryKeys(); track $index) {
+        @if((category == subcategoryToScroll[0]) || ('todo' == subcategoryToScroll[0])) {
+          <div class="container my-4">
+            <h1 class="d-flex justify-content-center" style="color: #2510a3;" id="{{category}}">{{category}}</h1>
+            @for (subcategory of getSubcategoryKeys(category); track $index) {
+              @if ((subcategory == subcategoryToScroll[1]) || ('todo' == subcategoryToScroll[1])) {
+                @if (category != subcategory) {
+                  <h3 class="my-3" id="{{subcategory}}">{{subcategory}}</h3>
+                }
+                <div class="row">
+                @for (product of groupedProducts[category][subcategory]; track $index) {
+                    <!-- Hacemos las columnas responsivas -->
+                    <div class="col-6 col-md-4 col-lg-3 my-2">
+                        <!-- Aseguramos que todas las tarjetas tengan la misma altura -->
+                        <div class="card carta my-2 d-flex flex-column h-100">
+                            <img src="{{product.imagen}}" class="card-img-top img" alt="...">
+                            <!-- El cuerpo de la tarjeta se estira para ocupar el espacio restante -->
+                            <div class="car-body m-2 d-flex flex-column justify-content-between">
+                                <h5 class="card-title">{{product.name}}</h5>
+                                <!-- Limitamos la altura del texto con una clase personalizada -->
+                                <p class="card-text descripcion" style="max-height: 3rem; overflow: hidden;">
+                                  {{product.description}}
+                                </p>
+                                <p class="card-text priceMobile" *ngIf="getMaxMin(product.name, product.category, product.subcategory).min === getMaxMin(product.name, product.category, product.subcategory).max">
+                                  ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).min)}}
+                                </p>
+                                <p class="card-text priceMobile" *ngIf="getMaxMin(product.name, product.category, product.subcategory).min !== getMaxMin(product.name, product.category, product.subcategory).max">
+                                  ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).min)}} - ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).max)}}
+                                </p>
                               </div>
-                                         
-                           </div>
-                      </div>
-                  </div>
-                }
-              </div>
-            }
-            }
-        </div>
-      }
-    }
-  </div>
-  <div class="d-block d-lg-none">
-    @for (category of getCategoryKeys(); track $index) {
-      @if((category == subcategoryToScroll[0]) || ('todo' == subcategoryToScroll[0])) {
-        <div class="container my-4">
-          <h1 class="d-flex justify-content-center" style="color: #2510a3;" id="{{category}}">{{category}}</h1>
-          @for (subcategory of getSubcategoryKeys(category); track $index) {
-            @if ((subcategory == subcategoryToScroll[1]) || ('todo' == subcategoryToScroll[1])) {
-              @if (category != subcategory) {
-                <h3 class="my-3" id="{{subcategory}}">{{subcategory}}</h3>
+                              <div class=" card-footer d-flex justify-content-center mt-auto">
+                                <button class="btn btn-primary btn-custom-size mx-2" 
+                                [routerLink]="['/product']" (click)="getProduct(product.name)">Ver producto</button>
+                              </div>
+                        </div>
+                    </div>
+                  }
+                </div>
               }
-              <div class="row">
-              @for (product of groupedProducts[category][subcategory]; track $index) {
-                  <!-- Hacemos las columnas responsivas -->
-                  <div class="col-6 col-md-4 col-lg-3 my-2">
-                      <!-- Aseguramos que todas las tarjetas tengan la misma altura -->
-                      <div class="card carta my-2 d-flex flex-column h-100">
-                          <img src="{{product.imagen}}" class="card-img-top img" alt="...">
-                          <!-- El cuerpo de la tarjeta se estira para ocupar el espacio restante -->
-                          <div class="car-body m-2 d-flex flex-column justify-content-between">
-                              <h5 class="card-title">{{product.name}}</h5>
-                              <!-- Limitamos la altura del texto con una clase personalizada -->
-                              <p class="card-text descripcion" style="max-height: 3rem; overflow: hidden;">
-                                {{product.description}}
-                              </p>
-                              <p class="card-text priceMobile" *ngIf="getMaxMin(product.name, product.category, product.subcategory).min === getMaxMin(product.name, product.category, product.subcategory).max">
-                                ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).min)}}
-                              </p>
-                              <p class="card-text priceMobile" *ngIf="getMaxMin(product.name, product.category, product.subcategory).min !== getMaxMin(product.name, product.category, product.subcategory).max">
-                                ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).min)}} - ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).max)}}
-                              </p>
-                            </div>
-                            <div class=" card-footer d-flex justify-content-center mt-auto">
-                              <button class="btn btn-primary btn-custom-size mx-2" 
-                              *ngIf="getMaxMin(product.name, product.category, product.subcategory).min == getMaxMin(product.name, product.category, product.subcategory).max" 
-                              [routerLink]="['/product']" (click)="getProduct(product.name)">Ver producto</button>
-                              <button class="btn btn-primary btn-custom-size mx-2" 
-                              *ngIf="getMaxMin(product.name, product.category, product.subcategory).min !== getMaxMin(product.name, product.category, product.subcategory).max" 
-                              [routerLink]="['/product']" (click)="getProduct(product.name)">Ver productos</button>
-                            </div>
-                      </div>
-                  </div>
-                }
-              </div>
             }
-          }
-        </div>
+          </div>
+        }
       }
-    }
-  </div>
-      <!-- Botón de WhatsApp -->
-      <a href="https://web.whatsapp.com/send?phone=56967453739" class="whatsapp-button" target="_blank">
-        <i class="fab fa-whatsapp fa-2x"></i>
-      </a>
-      <a href="https://web.whatsapp.com/send?phone=56967453739" class="msg-button" target="_blank">
-        ¿Necesitas ayuda?
-      </a>
+    </div>
+        <!-- Botón de WhatsApp -->
+        <a href="https://web.whatsapp.com/send?phone=56967453739" class="whatsapp-button" target="_blank">
+          <i class="fab fa-whatsapp fa-2x"></i>
+        </a>
+        <a href="https://web.whatsapp.com/send?phone=56967453739" class="msg-button" target="_blank">
+          ¿Necesitas ayuda?
+        </a>
+</div>
 
 
     
