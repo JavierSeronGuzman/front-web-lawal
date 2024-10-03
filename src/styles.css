@@ -267,4 +267,49 @@ span.mx-2 {
   text-overflow: ellipsis; /* Agrega "..." al final si es necesario */
   word-wrap: break-word;  /* Rompe la palabra si es muy larga */
 }
+/* Estilos para navegadores WebKit (Chrome, Safari, Edge) */
+.row.flex-nowrap.overflow-auto::-webkit-scrollbar {
+  width: 12px; /* Ancho de la barra de desplazamiento */
+  height: 12px; /* Altura de la barra horizontal */
+}
+
+.row.flex-nowrap.overflow-auto::-webkit-scrollbar-track {
+  background-color: transparent; /* Eliminar el fondo detrás de la barra */
+  border-radius: 10px;
+}
+
+.row.flex-nowrap.overflow-auto::-webkit-scrollbar-thumb {
+  background-color: #2510a3; /* Color del "thumb" (parte que se arrastra) */
+  border-radius: 10px;
+  border: 2px solid #f1f1f1; /* Borde para darle un mejor aspecto */
+}
+
+.row.flex-nowrap.overflow-auto::-webkit-scrollbar-thumb:hover {
+  background-color: #584adf; /* Color del "thumb" al pasar el cursor */
+}
+
+/* Ocultar las flechas de desplazamiento */
+.row.flex-nowrap.overflow-auto::-webkit-scrollbar-button {
+  width: 0;
+  height: 0;
+  opacity: 0;
+  display: none; /* Oculta las flechas de desplazamiento */
+}
+
+/* Firefox (usando scrollbar-width) */
+.row.flex-nowrap.overflow-auto {
+  scrollbar-width: thin;
+  scrollbar-color: #2510a3 transparent; /* Barra de desplazamiento con fondo transparente */
+}
+
+/* Otros navegadores modernos que soportan pseudo-elementos personalizados */
+.row.flex-nowrap.overflow-auto::-moz-scrollbar {
+  width: 12px;
+}
+
+.row.flex-nowrap.overflow-auto::-moz-scrollbar-thumb {
+  background-color: #2510a3;
+}
+
+
 

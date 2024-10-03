@@ -19,50 +19,57 @@
     <div class="d-none d-lg-block">
   
       @for (category of getCategoryKeys(); track $index) {
-        <div class="container my-4">
-          <div class="d-flex align-items-center" style="margin-bottom: 20px; margin-top: 50px;">
-            <span style="font-size: 25px;">Productos destacados</span>
-            <span class="d-flex align-items-center" style="color: #2510a3; margin-left: 5px; font-size: 25px; font-weight: bold;" id="{{category}}">{{category}}
-            </span>
+        @if ((category == 'Tableros') || (category == 'Zinc y accesorios')) {
+
+          <div class="container my-4">
+            <div class="d-flex align-items-center" style="margin-bottom: 20px; margin-top: 50px;">
+              <span style="font-size: 25px;">Productos destacados</span>
+              <span class="d-flex align-items-center" style="color: #2510a3; margin-left: 5px; font-size: 25px; font-weight: bold;" id="{{category}}">{{category}}
+              </span>
+            </div>
+            @for (subcategory of getSubcategoryKeys(category); track $index) {
+                <div class="row flex-nowrap overflow-auto custom-scrollbar" style="white-space: nowrap;">
+                @for (product of groupedProducts[category][subcategory]; track $index) {
+                    <!-- Hacemos las columnas responsivas -->
+                    <div class="col-6 col-md-4 col-lg-3 d-inline-block" style="width: 20%; height: auto; margin-right: -10px;">
+                        <!-- Aseguramos que todas las tarjetas tengan la misma altura -->
+                        <div class="card carta d-flex flex-column h-100" style="flex: 0 0 auto; ">
+                            <img src="{{product.imagen}}" class="card-img-top img" alt="...">
+                            <!-- El cuerpo de la tarjeta se estira para ocupar el espacio restante -->
+                            <div class="car-body m-2 d-flex flex-column justify-content-between">
+                                <h5 class="card-title">{{product.name}}</h5>
+                                <!-- Limitamos la altura del texto con una clase personalizada -->
+                                <p class="card-text descripcion" style="max-height: 3rem; overflow: hidden;">
+                                  {{product.description}}
+                                </p>
+                                <p class="card-text priceMobile" *ngIf="getMaxMin(product.name, product.category, product.subcategory).min === getMaxMin(product.name, product.category, product.subcategory).max">
+                                  ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).min)}}
+                                </p>
+                                <p class="card-text priceMobile" *ngIf="getMaxMin(product.name, product.category, product.subcategory).min !== getMaxMin(product.name, product.category, product.subcategory).max">
+                                  ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).min)}} - ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).max)}}
+                                </p>
+                              </div>
+                              <div class=" card-footer d-flex justify-content-center mt-auto">
+                                <button class="btn btn-primary btn-custom-size mx-2" 
+                                [routerLink]="['/product']" (click)="getProduct(product.name)">Ver producto</button>
+                              </div>
+                        </div>
+                    </div>
+                  }
+                </div>
+              
+            }
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-primary" style="background-color: #2510a3;" [routerLink]="['/catalog']">Ver más</button>
+            </div>
           </div>
-          @for (subcategory of getSubcategoryKeys(category); track $index) {
-              <div class="row flex-nowrap overflow-auto" style="white-space: nowrap;">
-              @for (product of groupedProducts[category][subcategory]; track $index) {
-                  <!-- Hacemos las columnas responsivas -->
-                  <div class="col-6 col-md-4 col-lg-3 d-inline-block" style="width: 20%; height: auto; margin-right: -10px;">
-                      <!-- Aseguramos que todas las tarjetas tengan la misma altura -->
-                      <div class="card carta d-flex flex-column h-100" style="flex: 0 0 auto; ">
-                          <img src="{{product.imagen}}" class="card-img-top img" alt="...">
-                          <!-- El cuerpo de la tarjeta se estira para ocupar el espacio restante -->
-                          <div class="car-body m-2 d-flex flex-column justify-content-between">
-                              <h5 class="card-title">{{product.name}}</h5>
-                              <!-- Limitamos la altura del texto con una clase personalizada -->
-                              <p class="card-text descripcion" style="max-height: 3rem; overflow: hidden;">
-                                {{product.description}}
-                              </p>
-                              <p class="card-text priceMobile" *ngIf="getMaxMin(product.name, product.category, product.subcategory).min === getMaxMin(product.name, product.category, product.subcategory).max">
-                                ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).min)}}
-                              </p>
-                              <p class="card-text priceMobile" *ngIf="getMaxMin(product.name, product.category, product.subcategory).min !== getMaxMin(product.name, product.category, product.subcategory).max">
-                                ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).min)}} - ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).max)}}
-                              </p>
-                            </div>
-                            <div class=" card-footer d-flex justify-content-center mt-auto">
-                              <button class="btn btn-primary btn-custom-size mx-2" 
-                              [routerLink]="['/product']" (click)="getProduct(product.name)">Ver producto</button>
-                            </div>
-                      </div>
-                  </div>
-                }
-              </div>
-            
-          }
-        </div>
-      
-    }
+      }
+        }
     </div>
     <div class="d-block d-lg-none">
       @for (category of getCategoryKeys(); track $index) {
+        @if ((category == 'Tableros') || (category == 'Zinc y accesorios')) {
+
           <div class="container my-4">
             <div class="d-flex align-items-center" style="margin-bottom: 20px; margin-top: 50px;">
               <span style="font-size: 20px;">Productos destacados</span>
@@ -101,8 +108,12 @@
                 </div>
               
             }
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-primary btn-sm" style="background-color: #2510a3;" [routerLink]="['/catalog']">Ver más</button>
+            </div>
           </div>
         
+      }
       }
     </div>
         <!-- Botón de WhatsApp -->

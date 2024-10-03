@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { NavigationEnd, Router, RouterModule, RouterOutlet } from '@angular/router';
 import { CardsComponent } from '../cards/cards.component';
 import { BannerComponent } from '../banner/banner.component';
@@ -25,14 +25,16 @@ export class HomeComponent implements OnInit{
 
   isLoading = true;
 
-  products: ProductStar[] = [];
+  products: Product[] = [];
   groupedProducts: GroupedProductsStar= {};
+  @ViewChild('productRow') productRow!: ElementRef;
+  @ViewChild('dotsContainer') dotsContainer!: ElementRef;
 
   constructor(private service: ProductService,private sharingDataService: SharingDataService,
     private router: Router, private viewportScroller: ViewportScroller
   ){}
   ngOnInit(): void {
-    this.service.getProductsStars().subscribe(products =>{
+    this.service.getProducts().subscribe(products =>{
       this.products = products;
       this.group();
       this.isLoading = false;
@@ -127,5 +129,6 @@ export class HomeComponent implements OnInit{
       max: Math.max(...prices)
     };
   }
+
   
 }
