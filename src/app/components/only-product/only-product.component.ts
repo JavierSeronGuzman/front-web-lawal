@@ -9,6 +9,7 @@ import { Store } from '@ngrx/store';
 import { LoaderComponent } from '../loader/loader.component';
 import { ProductService } from '../../services/product.service';
 import { RouterModule } from '@angular/router';
+import { GroupedProducts } from '../../models/groupedProducts';
 
 @Component({
   selector: 'app-only-product',
@@ -28,6 +29,8 @@ export class OnlyProductComponent implements OnInit{
   items: Item[] = [];
   item!: Item | undefined;
   isLoading = true;
+  showInter = false;
+  groupedProducts: GroupedProducts= {};
 
   constructor(private sharingDataService: SharingDataService,
     private store: Store<{items: ItemState}>, private service: ProductService
@@ -42,17 +45,16 @@ export class OnlyProductComponent implements OnInit{
     this.selectedId =  JSON.parse(sessionStorage.getItem('selectProduct') || '0');
     this.sharingDataService.getProduct.subscribe(products => {
       this.products = products
-      console.log(this.products);
       this.sortProducts();
-      console.log(this.productos);
       this.selectedId = this.products[0].id;
       this.saveSession();
       window.scrollTo(1, 1);
+      
     });
     this.service.getProducts().subscribe(products => {
       this.productos = products;
       this.isLoading = false;
-      console.log(this.productos)
+      this.group();
     });
   }
 
@@ -107,5 +109,56 @@ export class OnlyProductComponent implements OnInit{
     this.service.search(name).subscribe(product =>{
       this.sharingDataService.getProduct.emit(product);
     })
+  }
+  showInteresar(): boolean {
+    this.showInter = this.productos.some(product => product.relacion == this.products[0].category);
+    console.log(this.showInter)
+    return this.showInter 
+  }
+  group() {
+    // Objeto para almacenar los productos agrupados
+    this.groupedProducts = this.productos.reduce<GroupedProducts>((acumulador, product) => {
+      if (!acumulador[product.category]) {
+        acumulador[product.category] = {};
+      }
+  
+      if (!acumulador[product.category][product.subcategory]) {
+        acumulador[product.category][product.subcategory] = [];
+      }
+  
+      // Crear un conjunto para rastrear nombres de productos ya añadidos en la categoría y subcategoría
+      const addedProductNames = new Set(acumulador[product.category][product.subcategory].map(p => p.name));
+  
+      // Solo agregar el producto si su nombre no está en el conjunto
+      if (!addedProductNames.has(product.name)) {
+        acumulador[product.category][product.subcategory].push(product);
+      }
+  
+      return acumulador;
+    }, {});
+  
+    // Ordenar las categorías por prioridad usando `categoryPriority`
+    const orderedGroupedProducts: GroupedProducts = Object.keys(this.groupedProducts)
+      .sort((a, b) => {
+        const priorityA = this.productos.find(p => p.category === a)?.categoryPriority!;
+        const priorityB = this.productos.find(p => p.category === b)?.categoryPriority!;
+        return priorityA - priorityB;
+      })
+      .reduce((obj, key) => {
+        obj[key] = this.groupedProducts[key];
+        return obj;
+      }, {} as GroupedProducts);
+  
+    this.groupedProducts = orderedGroupedProducts;
+    console.log(this.groupedProducts)
+  
+  }
+  
+
+  getCategoryKeys(): string[] {
+    return Object.keys(this.groupedProducts);
+  }
+  getSubcategoryKeys(category: string): string[] {
+    return Object.keys(this.groupedProducts[category] || {});
   }
 }

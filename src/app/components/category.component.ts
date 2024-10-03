@@ -81,6 +81,7 @@ export class CategoryComponent implements OnInit{
       }, {} as GroupedProducts);
   
     this.groupedProducts = orderedGroupedProducts;
+    console.log(this.groupedProducts)
   
   }
   
