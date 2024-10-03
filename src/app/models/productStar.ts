@@ -9,4 +9,5 @@ export class ProductStar{
     imagen!: string | null;
     categoryPriority?: number;
     medida!: string;
+    relacion!: string;
 }
