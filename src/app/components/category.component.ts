@@ -80,10 +80,27 @@ export class CategoryComponent implements OnInit{
         return obj;
       }, {} as GroupedProducts);
   
-    this.groupedProducts = orderedGroupedProducts;
-    console.log(this.groupedProducts)
+    // Ordenar los productos de la categoría "Madera" por el patrón NxM
+    if (orderedGroupedProducts['Madera']) {
+      Object.keys(orderedGroupedProducts['Madera']).forEach(subcategory => {
+        orderedGroupedProducts['Madera'][subcategory] = orderedGroupedProducts['Madera'][subcategory].sort((a, b) => {
+          // Extraer los números antes y después de la "x"
+          const [aFirst, aSecond] = a.name.split('x').map(Number);
+          const [bFirst, bSecond] = b.name.split('x').map(Number);
   
+          // Primero ordenar por el número antes de la "x", luego por el número después de la "x"
+          if (aFirst === bFirst) {
+            return aSecond - bSecond;
+          }
+          return aFirst - bFirst;
+        });
+      });
+    }
+  
+    this.groupedProducts = orderedGroupedProducts;
+    console.log(this.groupedProducts);
   }
+  
   
 
   getCategoryKeys(): string[] {

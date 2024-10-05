@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit{
   isLoading = true;
 
   products: Product[] = [];
-  groupedProducts: GroupedProductsStar= {};
+  groupedProducts: GroupedProducts= {};
   @ViewChild('productRow') productRow!: ElementRef;
   @ViewChild('dotsContainer') dotsContainer!: ElementRef;
 
@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit{
 
   group() {
     // Objeto para almacenar los productos agrupados
-    this.groupedProducts = this.products.reduce<GroupedProductsStar>((acumulador, product) => {
+    this.groupedProducts = this.products.reduce<GroupedProducts>((acumulador, product) => {
       if (!acumulador[product.category]) {
         acumulador[product.category] = {};
       }
@@ -73,7 +73,7 @@ export class HomeComponent implements OnInit{
     }, {});
   
     // Ordenar las categorías por prioridad usando `categoryPriority`
-    const orderedGroupedProducts: GroupedProductsStar = Object.keys(this.groupedProducts)
+    const orderedGroupedProducts: GroupedProducts = Object.keys(this.groupedProducts)
       .sort((a, b) => {
         const priorityA = this.products.find(p => p.category === a)?.categoryPriority!;
         const priorityB = this.products.find(p => p.category === b)?.categoryPriority!;
@@ -82,17 +82,44 @@ export class HomeComponent implements OnInit{
       .reduce((obj, key) => {
         obj[key] = this.groupedProducts[key];
         return obj;
-      }, {} as GroupedProductsStar);
+      }, {} as GroupedProducts);
+  
+    // Ordenar los productos de la categoría "Madera" por el patrón NxM
+    if (orderedGroupedProducts['Madera']) {
+      Object.keys(orderedGroupedProducts['Madera']).forEach(subcategory => {
+        orderedGroupedProducts['Madera'][subcategory] = orderedGroupedProducts['Madera'][subcategory].sort((a, b) => {
+          // Extraer los números antes y después de la "x"
+          const [aFirst, aSecond] = a.name.split('x').map(Number);
+          const [bFirst, bSecond] = b.name.split('x').map(Number);
+  
+          // Primero ordenar por el número antes de la "x", luego por el número después de la "x"
+          if (aFirst === bFirst) {
+            return aSecond - bSecond;
+          }
+          return aFirst - bFirst;
+        });
+      });
+    }
   
     this.groupedProducts = orderedGroupedProducts;
-  
   }
+  
 
   getCategoryKeys(): string[] {
     return Object.keys(this.groupedProducts);
   }
   getSubcategoryKeys(category: string): string[] {
     return Object.keys(this.groupedProducts[category] || {});
+  }
+  getProductGroups(category: string, subcategory: string): any[][] {
+    const products = this.groupedProducts[category][subcategory];
+    const productGroups = [];
+    for (let i = 0; i < products.length; i += 5) {
+      productGroups.push(products.slice(i, i + 5));
+    }
+    console.log(productGroups)
+    return productGroups;
+    
   }
 
 
