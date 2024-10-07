@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2 } from '@angular/core';
 import { Item } from '../../models/cartItem';
 import { CategoriasComponent } from '../categorias/categorias.component';
 import { RouterModule } from '@angular/router';
@@ -25,7 +25,7 @@ export class NavbarComponent implements OnInit{
   name!: string;
   showBar = false;
 
-  constructor(private sharingDataService: SharingDataService,private service: ProductService,
+  constructor(private sharingDataService: SharingDataService,private service: ProductService,private renderer: Renderer2, private el: ElementRef,
     private store: Store<{items: ItemState}>
   ){
     this.store.select('items').subscribe( state => {
@@ -36,6 +36,12 @@ export class NavbarComponent implements OnInit{
   ngOnInit(): void {
     this.search();
     this.navBar();
+    this.renderer.listen('document', 'click', (event) => {
+      const clickedInside = this.el.nativeElement.contains(event.target);
+      if (!clickedInside) {
+        this.showBar = false; // Cierra el menú si se hace clic fuera
+      }
+    });
   }
 
   openCart(): void{

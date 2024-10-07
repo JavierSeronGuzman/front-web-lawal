@@ -22,10 +22,15 @@ import { LoaderComponent } from '../loader/loader.component';
   templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit{
-
+  cat1!: number;
+  cat2!: number;
+  cat3!: number;
   isLoading = true;
-
+  productGroups: Product[][] = [];
   products: Product[] = [];
+  madera: Product[] = [];
+  tableros: Product[] = [];
+  zinc: Product[] = [];
   groupedProducts: GroupedProducts= {};
   @ViewChild('productRow') productRow!: ElementRef;
   @ViewChild('dotsContainer') dotsContainer!: ElementRef;
@@ -49,6 +54,8 @@ export class HomeComponent implements OnInit{
     this.scrollToMap();
     this.home();
   }
+
+  
 
   group() {
     // Objeto para almacenar los productos agrupados
@@ -88,21 +95,30 @@ export class HomeComponent implements OnInit{
     if (orderedGroupedProducts['Madera']) {
       Object.keys(orderedGroupedProducts['Madera']).forEach(subcategory => {
         orderedGroupedProducts['Madera'][subcategory] = orderedGroupedProducts['Madera'][subcategory].sort((a, b) => {
-          // Extraer los números antes y después de la "x"
-          const [aFirst, aSecond] = a.name.split('x').map(Number);
-          const [bFirst, bSecond] = b.name.split('x').map(Number);
+          // Verificar si el nombre del producto contiene "x"
+          if (a.name.includes('x') && b.name.includes('x')) {
+            const [aFirst, aSecond] = a.name.split('x').map(Number);
+            const [bFirst, bSecond] = b.name.split('x').map(Number);
   
-          // Primero ordenar por el número antes de la "x", luego por el número después de la "x"
-          if (aFirst === bFirst) {
-            return aSecond - bSecond;
+            // Primero ordenar por el número antes de la "x", luego por el número después de la "x"
+            if (aFirst === bFirst) {
+              return aSecond - bSecond;
+            }
+            return aFirst - bFirst;
+          } else {
+            // Si no contienen "x", mantener el orden original
+            return 0;
           }
-          return aFirst - bFirst;
         });
       });
     }
   
+    // Asignar el grupo de productos ordenados
     this.groupedProducts = orderedGroupedProducts;
+    this.getProductGroups();
+
   }
+  
   
 
   getCategoryKeys(): string[] {
@@ -111,14 +127,31 @@ export class HomeComponent implements OnInit{
   getSubcategoryKeys(category: string): string[] {
     return Object.keys(this.groupedProducts[category] || {});
   }
-  getProductGroups(category: string, subcategory: string): any[][] {
-    const products = this.groupedProducts[category][subcategory];
-    const productGroups = [];
-    for (let i = 0; i < products.length; i += 5) {
-      productGroups.push(products.slice(i, i + 5));
-    }
-    console.log(productGroups)
-    return productGroups;
+  getProductGroups() {
+       // Preparar el arreglo de `productGroups` dividiendo los productos en grupos de 5
+       Object.keys(this.groupedProducts).forEach(category => {
+        Object.keys(this.groupedProducts[category]).forEach(subcategory => {
+          const products = this.groupedProducts[category][subcategory];
+          for (let i = 0; i < products.length; i += 5) {
+            this.productGroups.push(products.slice(i, i + 5));
+          }
+        });
+      });
+      for(let arreglo of this.productGroups){
+        for(let product of arreglo){
+          if(product.category == 'Madera'){
+            this.madera.push(product);
+          }else if(product.category == 'Tableros'){
+            this.tableros.push(product);
+          }else if(product.category == 'Zinc y accesorios'){
+            this.zinc.push(product);
+          }
+          
+        }
+      }
+      this.cat1 = Math.ceil(this.madera.length/5);
+      this.cat2 = Math.ceil(this.tableros.length/5);
+      this.cat3 = Math.ceil(this.zinc.length/5);
     
   }
 
