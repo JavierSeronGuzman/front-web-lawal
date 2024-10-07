@@ -161,4 +161,5 @@ export class OnlyProductComponent implements OnInit{
   getSubcategoryKeys(category: string): string[] {
     return Object.keys(this.groupedProducts[category] || {});
   }
+  
 }
