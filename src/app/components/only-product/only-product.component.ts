@@ -45,11 +45,11 @@ export class OnlyProductComponent implements OnInit{
     this.selectedId =  JSON.parse(sessionStorage.getItem('selectProduct') || '0');
     this.sharingDataService.getProduct.subscribe(products => {
       this.products = products
+      console.log(products)
       this.sortProducts();
       this.selectedId = this.products[0].id;
       this.saveSession();
       window.scrollTo(1, 1);
-      
     });
     this.service.getProducts().subscribe(products => {
       this.productos = products;
@@ -112,7 +112,6 @@ export class OnlyProductComponent implements OnInit{
   }
   showInteresar(): boolean {
     this.showInter = this.productos.some(product => product.relacion == this.products[0].category);
-    console.log(this.showInter)
     return this.showInter 
   }
   group() {
@@ -150,7 +149,6 @@ export class OnlyProductComponent implements OnInit{
       }, {} as GroupedProducts);
   
     this.groupedProducts = orderedGroupedProducts;
-    console.log(this.groupedProducts)
   
   }
   
@@ -161,5 +159,4 @@ export class OnlyProductComponent implements OnInit{
   getSubcategoryKeys(category: string): string[] {
     return Object.keys(this.groupedProducts[category] || {});
   }
-  
 }

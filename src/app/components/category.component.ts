@@ -126,7 +126,7 @@ export class CategoryComponent implements OnInit{
   }
 
   getProduct(name: string): void{
-    this.service.search(name).subscribe(product =>{
+    this.service.searchExact(name).subscribe(product =>{
       this.sharingDataService.getProduct.emit(product);
     })
   }

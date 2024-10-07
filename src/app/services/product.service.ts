@@ -37,4 +37,8 @@ export class ProductService{
   getProduct(id:number): Observable<Product>{
     return this.http.get<Product>(`https://getbackseron.com:443/api/cotizacion/${id}`)
   }
+  searchExact(name: string): Observable<Product[]>{
+    return this.http.get<Product[]>(`https://getbackseron.com:443/api/cotizacion/searchExact?name=${name}`)
+  }
+
 }
