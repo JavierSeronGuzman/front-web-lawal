@@ -40,6 +40,11 @@ export class CartModalComponent {
     const whatsappURL = `https://web.whatsapp.com/send?phone=56967453739&text=${message}`;
     window.open(whatsappURL, '_blank');
   }
+  sendToWhatsAppMovil() {
+    const message = this.generateWhatsAppMessage();
+    const whatsappURL = `https://wa.me/56967453739?text=${message}`;
+    window.open(whatsappURL, '_blank');
+  }
   generateWhatsAppMessage(): String {
     let message = 'Hola, quiero ver disponibilidad de los siguientes productos:\n';
 
