@@ -43,6 +43,7 @@ export class HomeComponent implements OnInit{
       this.products = products;
       this.group();
       this.isLoading = false;
+      this.sharingDataService.scrollEventEmitter.emit("");
     })
         // Scroll al inicio cuando la aplicación carga o la página se refresca
     window.scrollTo(1, 1);

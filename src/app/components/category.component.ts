@@ -22,6 +22,8 @@ export class CategoryComponent implements OnInit{
   subcategoryToScroll!: string[];  
   productos: Product[] = [];
   isLoading = true;
+  scrollTo!: string;
+  
 
   constructor(
     private service: ProductService,
@@ -34,6 +36,11 @@ export class CategoryComponent implements OnInit{
       this.products = products;
       this.group();
       this.isLoading = false;
+      this.move();
+      this.scrollTo = JSON.parse(sessionStorage.getItem('name') || '')
+      console.log(this.scrollTo)
+      setTimeout(() => this.scrollProduct(), 50);
+      
     });
     // Scroll al inicio cuando la aplicación carga o la página se refresca
     window.scrollTo(1, 1);
@@ -45,7 +52,17 @@ export class CategoryComponent implements OnInit{
     this.subcategoryToScroll = JSON.parse(sessionStorage.getItem('cat') || '["todo","todo"]')
     this.sub();
   }
-
+  move(): void{
+    this.sharingDataService.scrollEventEmitter.subscribe((name)=>{
+      sessionStorage.setItem('name', JSON.stringify(name));
+    })
+  }
+  scrollProduct(): void{   
+      const mapElement = document.getElementById(this.scrollTo);
+      if (mapElement) {
+        mapElement.scrollIntoView({ behavior: 'smooth' });
+      }
+  }
   group() {
     // Objeto para almacenar los productos agrupados
     this.groupedProducts = this.products.reduce<GroupedProducts>((acumulador, product) => {
@@ -98,7 +115,6 @@ export class CategoryComponent implements OnInit{
     }
   
     this.groupedProducts = orderedGroupedProducts;
-    console.log(this.groupedProducts);
   }
   
   
@@ -117,6 +133,7 @@ export class CategoryComponent implements OnInit{
     this.sharingDataService.subEventEmitter.subscribe((subcategory: string[]) => {
       window.scrollTo(1, 1);
       this.subcategoryToScroll = subcategory
+
       this.saveSession();
       
     });

@@ -14,3 +14,4 @@ export const routes: Routes = [
     {path:'nosotros',component: NosotrosComponent},
     {path: 'loader',component: LoaderComponent}
 ];
+

@@ -45,7 +45,8 @@ export class OnlyProductComponent implements OnInit{
     this.selectedId =  JSON.parse(sessionStorage.getItem('selectProduct') || '0');
     this.sharingDataService.getProduct.subscribe(products => {
       this.products = products
-      console.log(products)
+      console.log(products[0].name)
+      this.sharingDataService.scrollEventEmitter.emit(products[0].name);
       this.sortProducts();
       this.selectedId = this.products[0].id;
       this.saveSession();
