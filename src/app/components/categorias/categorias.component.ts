@@ -79,4 +79,11 @@ export class CategoriasComponent{
     this.sharingDataService.closenav.emit();
   }
 
+  viewSub(category: string): boolean{
+    if(this.getSubcategoryKeys(category).length>1){
+      return true;
+    }
+    return false;
+  }
+
 }

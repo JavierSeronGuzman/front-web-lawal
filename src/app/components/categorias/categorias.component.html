@@ -9,16 +9,16 @@
     </li>
     @for (category of getCategoryKeys(); track $index) {
       <li class="dropend">
-        @for (subcategory of getSubcategoryKeys(category); track $index) {
-        <a [ngClass]="category !== subcategory ? 'dropdown-item dropdown-toggle' : 'dropdown-item'" id="dropdownSubMenu" data-bs-toggle="dropdown" aria-expanded="false" style="font-weight: bold;"
+        <a [ngClass]="viewSub(category)? 'dropdown-item dropdown-toggle': 'dropdown-item'" id="dropdownSubMenu" data-bs-toggle="dropdown" aria-expanded="false" style="font-weight: bold;"
         [routerLink]="['/catalog']" (click)="sub(category,'todo')" (click)="closeBar()">
           {{category}}
         </a>
-          @if(category != subcategory){
-            <ul class="dropdown-menu " aria-labelledby="dropdownSubMenu">
+        @if(viewSub(category)){
+          <ul class="dropdown-menu " aria-labelledby="dropdownSubMenu">
+        @for (subcategory of getSubcategoryKeys(category); track $index) {
                 <li><a class="dropdown-item" [routerLink]="['/catalog']" (click)="sub(category,subcategory)" (click)="closeBar()">{{subcategory}}</a></li>
-              </ul>
-          }
+              }
+            </ul>
         }
       </li>
     }
