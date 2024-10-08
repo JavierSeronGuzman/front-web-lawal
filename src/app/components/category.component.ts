@@ -39,7 +39,7 @@ export class CategoryComponent implements OnInit{
       this.move();
       this.scrollTo = JSON.parse(sessionStorage.getItem('name') || '')
       console.log(this.scrollTo)
-      setTimeout(() => this.scrollProduct(), 50);
+      setTimeout(() => this.scrollProduct(), 300);
       
     });
     // Scroll al inicio cuando la aplicación carga o la página se refresca
@@ -58,10 +58,13 @@ export class CategoryComponent implements OnInit{
     })
   }
   scrollProduct(): void{   
-      const mapElement = document.getElementById(this.scrollTo);
-      if (mapElement) {
-        mapElement.scrollIntoView({ behavior: 'smooth' });
-      }
+    console.log(this.scrollTo);  // Verifica qué valor tiene en pantallas pequeñas
+    const mapElement = document.getElementById(this.scrollTo);
+    if (mapElement) {
+      mapElement.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      console.log('Elemento no encontrado');
+    }
   }
   group() {
     // Objeto para almacenar los productos agrupados
