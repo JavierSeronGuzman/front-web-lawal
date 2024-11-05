@@ -19,7 +19,8 @@ import { LoaderComponent } from '../loader/loader.component';
   standalone: true,
   imports: [RouterOutlet,BannerComponent,OfertasComponent,CardsComponent,AboutusComponent,MapComponent, CommonModule, RouterModule, LoaderComponent
   ],
-  templateUrl: './home.component.html'
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit{
   cat1!: number;
