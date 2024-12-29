@@ -42,8 +42,14 @@
                     <div class="car-body m-2 d-flex flex-column justify-content-between">
                       <h5 class="card-title">{{product.name}}</h5>
                       <p class="card-text descripcion">{{product.description}}</p>
-                      <p class="card-text priceMobile">
+                      <!-- <p class="card-text priceMobile">
                         ${{formatPrice(getMaxMin(product.name, 'Madera', 'subcategory').min)}} - ${{formatPrice(getMaxMin(product.name, 'Madera', 'subcategory').max)}}
+                      </p> -->
+                      <p class="card-text priceMobile" *ngIf="getMaxMin(product.name, product.category, product.subcategory).min === getMaxMin(product.name, product.category, product.subcategory).max">
+                        ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).min)}}
+                      </p>
+                      <p class="card-text priceMobile" *ngIf="getMaxMin(product.name, product.category, product.subcategory).min !== getMaxMin(product.name, product.category, product.subcategory).max">
+                        ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).min)}} - ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).max)}}
                       </p>
                     </div>
                     <div class="card-footer d-flex justify-content-center mt-auto">
@@ -72,6 +78,12 @@
 
         </div>
       </div>
+      <div class="container">
+        <div class="row">
+          <img src="https://i.imgur.com/Gh4RGLS.jpeg" alt="">
+        </div>
+        
+      </div>
     
       <!-- Carrusel de Tableros -->
       <div class="container my-4" *ngIf="tableros.length > 0">
@@ -92,8 +104,14 @@
                     <div class="car-body m-2 d-flex flex-column justify-content-between">
                       <h5 class="card-title">{{product.name}}</h5>
                       <p class="card-text descripcion">{{product.description}}</p>
-                      <p class="card-text priceMobile">
+                      <!-- <p class="card-text priceMobile">
                         ${{formatPrice(getMaxMin(product.name, 'Tableros', 'subcategory').min)}} - ${{formatPrice(getMaxMin(product.name, 'Tableros', 'subcategory').max)}}
+                      </p> -->
+                      <p class="card-text priceMobile" *ngIf="getMaxMin(product.name, product.category, product.subcategory).min === getMaxMin(product.name, product.category, product.subcategory).max">
+                        ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).min)}}
+                      </p>
+                      <p class="card-text priceMobile" *ngIf="getMaxMin(product.name, product.category, product.subcategory).min !== getMaxMin(product.name, product.category, product.subcategory).max">
+                        ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).min)}} - ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).max)}}
                       </p>
                     </div>
                     <div class="card-footer d-flex justify-content-center mt-auto">
@@ -122,6 +140,12 @@
 
         </div>
       </div>
+      <div class="container">
+        <div class="row">
+          <img src="https://i.imgur.com/Gh4RGLS.jpeg" alt="">
+        </div>
+        
+      </div>
     
       <!-- Carrusel de Zinc -->
       <div class="container my-4" *ngIf="zinc.length > 0">
@@ -142,8 +166,14 @@
                     <div class="car-body m-2 d-flex flex-column justify-content-between">
                       <h5 class="card-title">{{product.name}}</h5>
                       <p class="card-text descripcion">{{product.description}}</p>
-                      <p class="card-text priceMobile">
+                      <!-- <p class="card-text priceMobile">
                         ${{formatPrice(getMaxMin(product.name, 'Zinc', 'subcategory').min)}} - ${{formatPrice(getMaxMin(product.name, 'Zinc', 'subcategory').max)}}
+                      </p> -->
+                      <p class="card-text priceMobile" *ngIf="getMaxMin(product.name, product.category, product.subcategory).min === getMaxMin(product.name, product.category, product.subcategory).max">
+                        ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).min)}}
+                      </p>
+                      <p class="card-text priceMobile" *ngIf="getMaxMin(product.name, product.category, product.subcategory).min !== getMaxMin(product.name, product.category, product.subcategory).max">
+                        ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).min)}} - ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).max)}}
                       </p>
                     </div>
                     <div class="card-footer d-flex justify-content-center mt-auto">
@@ -172,6 +202,12 @@
             </button>
 
         </div>
+        <div class="container">
+          <div class="row">
+            <img src="https://i.imgur.com/Gh4RGLS.jpeg" alt="">
+          </div>
+          
+        </div>
       </div>
               <!-- Botón de WhatsApp -->
               <a href="https://web.whatsapp.com/send?phone=56967453739" class="whatsapp-button" target="_blank">
@@ -183,6 +219,7 @@
     </div>
     
     <div class="d-block d-lg-none">
+
       @for (category of getCategoryKeys(); track $index) {
         @if ((category == 'Tableros') || (category == 'Zinc y accesorios') || (category == 'Madera')) {
 
@@ -226,6 +263,12 @@
               </div>
             <div class="d-flex justify-content-end my-4">
               <button class="btn btn-primary btn-sm" style="background-color: #2510a3;" [routerLink]="['/catalog']">Ver más</button>
+            </div>
+            <div class="container">
+              <div class="row">
+                <img src="https://i.imgur.com/Gh4RGLS.jpeg" alt="" style="height: 40px;">
+              </div>
+              
             </div>
           </div>
         
