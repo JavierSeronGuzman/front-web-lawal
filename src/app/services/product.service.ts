@@ -18,27 +18,27 @@ export class ProductService{
   ) { }
 
   getProducts(): Observable<Product[]>{
-    return this.http.get<Product[]>("https://getbackseron.com:8081/api/cotizacion/products ")
+    return this.http.get<Product[]>("https://getbackseron.com/api/cotizacion/products ")
   }
   getProductsStars(): Observable<ProductStar[]>{
-    return this.http.get<ProductStar[]>("https://getbackseron.com:8081/api/extras/products ")
+    return this.http.get<ProductStar[]>("https://getbackseron.com/api/extras/products ")
   }
   getBanner(): Observable<Banner[]>{
-    return this.http.get<Banner[]>("https://getbackseron.com:8081/api/images/banners ")
+    return this.http.get<Banner[]>("https://getbackseron.com/api/images/banners ")
   }
   getAnuncios(): Observable<Anuncios[]>{
-    return this.http.get<Anuncios[]>("https://getbackseron.com:8081/api/images/anuncios ")
+    return this.http.get<Anuncios[]>("https://getbackseron.com/api/images/anuncios ")
   }
 
   search(name: string): Observable<Product[]>{
-      return this.http.get<Product[]>(`https://getbackseron.com:8081/api/cotizacion/search?name=${name}`)
+      return this.http.get<Product[]>(`https://getbackseron.com/api/cotizacion/search?name=${name}`)
     }
   
   getProduct(id:number): Observable<Product>{
-    return this.http.get<Product>(`https://getbackseron.com:8081/api/cotizacion/${id}`)
+    return this.http.get<Product>(`https://getbackseron.com/api/cotizacion/${id}`)
   }
   searchExact(name: string): Observable<Product[]>{
-    return this.http.get<Product[]>(`https://getbackseron.com:8081/api/cotizacion/searchExact?name=${name}`)
+    return this.http.get<Product[]>(`https://getbackseron.com/api/cotizacion/searchExact?name=${name}`)
   }
 
 }
