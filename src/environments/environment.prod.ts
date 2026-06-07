@@ -2,5 +2,5 @@
 // p. ej. 'https://lawal-back-production.up.railway.app/web'
 export const environment = {
   production: true,
-  apiUrl: 'https://back-erp-lawal-production.up.railway.app',
+  apiUrl: 'https://back-erp-lawal-production.up.railway.app/web',
 };
