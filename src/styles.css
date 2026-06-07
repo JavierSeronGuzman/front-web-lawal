@@ -313,3 +313,199 @@ span.mx-2 {
 
 
 
+
+/* ============================================================
+   LAWAL — Capa de diseño (estilo tienda, paleta Lawal)
+   ============================================================ */
+:root {
+  --lw-blue: #001a7b;
+  --lw-blue-2: #2510a3;
+  --lw-accent: #ffd23f;
+  --lw-ink: #1f2430;
+  --lw-muted: #6b7280;
+  --lw-line: #e7e9f0;
+  --lw-bg: #f6f7fb;
+}
+
+body { background: #fff; color: var(--lw-ink); }
+
+/* Botón principal */
+.lw-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  background: var(--lw-blue); color: #fff; border: none;
+  font-weight: 700; font-size: 14px; padding: 9px 16px; border-radius: 10px;
+  cursor: pointer; transition: background .15s, transform .15s; text-decoration: none;
+}
+.lw-btn:hover { background: var(--lw-blue-2); color: #fff; transform: translateY(-1px); }
+.lw-btn-ghost { background: transparent; color: var(--lw-blue); border: 1.5px solid var(--lw-blue); }
+.lw-btn-ghost:hover { background: var(--lw-blue); color: #fff; }
+
+/* Secciones */
+.lw-section { max-width: 1240px; margin: 0 auto; padding: 0 16px; }
+.lw-section-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin: 38px 0 18px;
+}
+.lw-section-title {
+  font-size: 26px; font-weight: 800; color: var(--lw-ink); margin: 0;
+  display: flex; align-items: center; gap: 8px;
+}
+.lw-section-title::before {
+  content: ""; width: 6px; height: 26px; border-radius: 4px;
+  background: var(--lw-accent); display: inline-block;
+}
+.lw-section-title .accent { color: var(--lw-blue-2); }
+
+/* Franja de beneficios */
+.lw-features {
+  background: var(--lw-bg); border-top: 1px solid var(--lw-line); border-bottom: 1px solid var(--lw-line);
+  margin-top: 18px;
+}
+.lw-features-inner {
+  max-width: 1240px; margin: 0 auto; padding: 16px;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+}
+.lw-feature { display: flex; align-items: center; gap: 12px; }
+.lw-feature i { font-size: 24px; color: var(--lw-blue); width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  background: #e9edff; border-radius: 50%; }
+.lw-feature b { display: block; font-size: 14px; color: var(--lw-ink); }
+.lw-feature span { font-size: 12px; color: var(--lw-muted); }
+@media (max-width: 768px) { .lw-features-inner { grid-template-columns: repeat(2, 1fr); } }
+
+/* Grid de categorías */
+.lw-cats {
+  display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px;
+}
+@media (max-width: 992px) { .lw-cats { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 576px) { .lw-cats { grid-template-columns: repeat(3, 1fr); } }
+.lw-cat {
+  background: #fff; border: 1px solid var(--lw-line); border-radius: 14px;
+  padding: 16px 8px; text-align: center; cursor: pointer; text-decoration: none;
+  color: var(--lw-ink); transition: box-shadow .2s, transform .2s, border-color .2s;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+}
+.lw-cat:hover { box-shadow: 0 10px 24px rgba(0,26,123,.12); transform: translateY(-3px); border-color: #c9d2ff; color: var(--lw-blue); }
+.lw-cat i { font-size: 26px; color: var(--lw-blue); }
+.lw-cat span { font-size: 13px; font-weight: 600; line-height: 1.2; }
+
+/* Barra de categorías bajo el navbar */
+.lw-catbar {
+  position: fixed; top: 65px; left: 0; right: 0; z-index: 1020;
+  background: #fff; border-bottom: 1px solid var(--lw-line);
+  box-shadow: 0 2px 8px rgba(0,0,0,.04);
+}
+.lw-catbar-inner {
+  max-width: 1240px; margin: 0 auto; padding: 8px 16px;
+  display: flex; gap: 18px; overflow-x: auto; white-space: nowrap;
+}
+.lw-catbar a {
+  color: var(--lw-ink); text-decoration: none; font-size: 14px; font-weight: 600;
+  padding: 4px 2px; border-bottom: 2px solid transparent;
+}
+.lw-catbar a:hover { color: var(--lw-blue); border-bottom-color: var(--lw-accent); }
+@media (max-width: 991px) { .lw-catbar { display: none; } }
+
+/* Restyle de las tarjetas de producto existentes (.carta) */
+.carta {
+  border: 1px solid var(--lw-line) !important; border-radius: 14px !important;
+  overflow: hidden; transition: box-shadow .2s, transform .2s; background: #fff;
+}
+.carta:hover { box-shadow: 0 10px 28px rgba(0,26,123,.14); transform: translateY(-3px); }
+.carta .img, .carta .card-img-top {
+  aspect-ratio: 1 / 1; object-fit: contain; background: var(--lw-bg); padding: 12px;
+}
+.carta .card-title { font-size: 15px; font-weight: 600; color: var(--lw-ink); }
+.carta .descripcion { font-size: 12.5px; color: var(--lw-muted);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.carta .priceMobile { color: var(--lw-blue); font-weight: 800; font-size: 18px; margin: 4px 0; }
+.carta .card-footer { background: #fff !important; border-top: none !important; padding-bottom: 14px; }
+.carta .btn-primary {
+  background: var(--lw-blue) !important; border: none !important; border-radius: 10px !important; font-weight: 700;
+}
+.carta .btn-primary:hover { background: var(--lw-blue-2) !important; }
+
+/* Carruseles de la home con padding lateral para los controles */
+#carouselMadera, #carouselTableros, #carouselZinc { padding: 0 10px; }
+
+/* Ocultar imágenes placeholder externas (imgur) que quedaron en la home */
+img[src*="imgur.com"] { display: none !important; }
+
+/* Imagen en tile de categoría destacada */
+.lw-cat-img { width: 100%; height: 90px; object-fit: cover; border-radius: 10px; }
+
+/* Promos / anuncios (tiles grandes estilo Sodimac) */
+.lw-promos {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 22px;
+}
+@media (max-width: 992px) { .lw-promos { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 576px) { .lw-promos { grid-template-columns: 1fr; } }
+.lw-promo {
+  display: block; border-radius: 14px; overflow: hidden; line-height: 0;
+  box-shadow: 0 4px 14px rgba(0,26,123,.10); transition: transform .2s, box-shadow .2s;
+}
+.lw-promo:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(0,26,123,.18); }
+.lw-promo img { width: 100%; height: 230px; object-fit: cover; display: block; }
+/* primer promo más ancho cuando hay 3+ (estilo Sodimac) */
+.lw-promos > .lw-promo:first-child:nth-last-child(n+3) { grid-column: span 2; }
+.lw-promos > .lw-promo:first-child:nth-last-child(n+3) img { height: 100%; min-height: 230px; }
+@media (max-width: 992px) { .lw-promos > .lw-promo:first-child:nth-last-child(n+3) { grid-column: span 2; } }
+@media (max-width: 576px) { .lw-promos > .lw-promo:first-child:nth-last-child(n+3) { grid-column: span 1; } }
+
+/* Carrusel horizontal de productos */
+.lw-prodscroll {
+  display: flex; gap: 16px; overflow-x: auto; padding: 4px 2px 16px; scroll-snap-type: x mandatory;
+}
+.lw-prodscroll::-webkit-scrollbar { height: 8px; }
+.lw-prodscroll::-webkit-scrollbar-thumb { background: #c9d2ff; border-radius: 8px; }
+.lw-pcard {
+  flex: 0 0 220px; scroll-snap-align: start; background: #fff;
+  border: 1px solid var(--lw-line); border-radius: 14px; overflow: hidden;
+  display: flex; flex-direction: column; transition: box-shadow .2s, transform .2s;
+}
+.lw-pcard:hover { box-shadow: 0 10px 28px rgba(0,26,123,.14); transform: translateY(-3px); }
+.lw-pcard-img { display: block; aspect-ratio: 1/1; background: var(--lw-bg); padding: 12px; }
+.lw-pcard-img img { width: 100%; height: 100%; object-fit: contain; }
+.lw-pcard-body { padding: 12px 14px 16px; display: flex; flex-direction: column; flex: 1; }
+.lw-pcard-name { font-weight: 600; color: var(--lw-ink); margin: 0 0 2px; font-size: 15px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lw-pcard-desc { font-size: 12px; color: var(--lw-muted); margin: 0 0 8px;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 2.4em; }
+.lw-pcard-price { color: var(--lw-blue); font-weight: 800; font-size: 18px; margin: 0 0 10px; }
+.lw-catsection:nth-child(even) { background: var(--lw-bg); padding-top: 8px; padding-bottom: 24px; }
+
+/* Barra de navegación por categorías (chips, sticky bajo el navbar) */
+.lw-catnav {
+  position: sticky; top: 65px; z-index: 900; background: #fff;
+  border-top: 1px solid var(--lw-line); border-bottom: 1px solid var(--lw-line);
+  margin-top: 10px;
+}
+.lw-catnav-inner {
+  max-width: 1240px; margin: 0 auto; padding: 10px 16px;
+  display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none;
+}
+.lw-catnav-inner::-webkit-scrollbar { display: none; }
+.lw-chip {
+  white-space: nowrap; border: 1px solid var(--lw-line); background: #fff; color: var(--lw-ink);
+  border-radius: 999px; padding: 8px 14px; font-size: 13px; font-weight: 600; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 7px; transition: all .15s;
+}
+.lw-chip:hover { background: var(--lw-blue); color: #fff; border-color: var(--lw-blue); }
+.lw-chip i { color: var(--lw-blue); }
+.lw-chip:hover i { color: #fff; }
+
+/* Mosaico de anuncios por categoría (hasta 6: ancho+2 / 2+ancho) */
+.lw-mosaic {
+  display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 210px; gap: 14px; margin-bottom: 24px;
+}
+.lw-mtile {
+  border-radius: 14px; overflow: hidden; line-height: 0; display: block;
+  box-shadow: 0 4px 14px rgba(0,26,123,.10); transition: transform .2s, box-shadow .2s;
+}
+.lw-mtile:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(0,26,123,.18); }
+.lw-mtile img { width: 100%; height: 100%; object-fit: cover; }
+.lw-mtile:nth-child(1), .lw-mtile:nth-child(6) { grid-column: span 2; }
+@media (max-width: 768px) {
+  .lw-mosaic { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 150px; }
+  .lw-mtile:nth-child(1), .lw-mtile:nth-child(6) { grid-column: span 2; }
+}

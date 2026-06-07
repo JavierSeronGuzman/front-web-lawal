@@ -3,6 +3,8 @@ import { NavigationEnd, Router, RouterModule, RouterOutlet } from '@angular/rout
 import { CardsComponent } from '../cards/cards.component';
 import { BannerComponent } from '../banner/banner.component';
 import { OfertasComponent } from '../ofertas/ofertas.component';
+import { OfertasPrecioComponent } from '../ofertas-precio/ofertas-precio.component';
+import { ProductCarouselComponent, CarouselCard } from '../product-carousel/product-carousel.component';
 import { MapComponent } from '../map/map.component';
 import { AboutusComponent } from '../aboutus/aboutus.component';
 import { SharingDataService } from '../../services/sharing-data.service';
@@ -12,12 +14,14 @@ import { GroupedProducts } from '../../models/groupedProducts';
 import { ProductService } from '../../services/product.service';
 import { GroupedProductsStar } from '../../models/groupedProductsStar';
 import { Product } from '../../models/product';
+import { Anuncios } from '../../models/anuncios';
+import { CategoriaDestacada } from '../../models/categoriaDestacada';
 import { LoaderComponent } from '../loader/loader.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterOutlet,BannerComponent,OfertasComponent,CardsComponent,AboutusComponent,MapComponent, CommonModule, RouterModule, LoaderComponent
+  imports: [RouterOutlet,BannerComponent,OfertasComponent,OfertasPrecioComponent,ProductCarouselComponent,CardsComponent,AboutusComponent,MapComponent, CommonModule, RouterModule, LoaderComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
@@ -33,6 +37,10 @@ export class HomeComponent implements OnInit{
   tableros: Product[] = [];
   zinc: Product[] = [];
   groupedProducts: GroupedProducts= {};
+  categoriasDestacadas: CategoriaDestacada[] = [];
+  anuncios: Anuncios[] = [];
+  stars: Product[] = [];
+  ofertas: Product[] = [];
   @ViewChild('productRow') productRow!: ElementRef;
   @ViewChild('dotsContainer') dotsContainer!: ElementRef;
 
@@ -46,6 +54,10 @@ export class HomeComponent implements OnInit{
       this.isLoading = false;
       this.sharingDataService.scrollEventEmitter.emit("");
     })
+    this.service.getCategoriasDestacadas().subscribe(c => this.categoriasDestacadas = c);
+    this.service.getAnuncios().subscribe(a => this.anuncios = a);
+    this.service.getProductsStars().subscribe(s => this.stars = s);
+    this.service.getOfertas().subscribe(o => this.ofertas = o);
         // Scroll al inicio cuando la aplicación carga o la página se refresca
     window.scrollTo(1, 1);
 
@@ -185,12 +197,110 @@ export class HomeComponent implements OnInit{
   getMaxMin(name: string, category: string, subcategory:string): { min: number, max: number }{
     const hola = this.products.filter(product => product.name === name);
     const prices = hola.map(precio => precio.price)
-    
+
     return {
       min: Math.min(...prices),
       max: Math.max(...prices)
     };
   }
 
-  
+  // Ícono Font Awesome por categoría (para las tarjetas de categorías)
+  catIcon(category: string): string {
+    const map: { [k: string]: string } = {
+      'Madera': 'fa-tree',
+      'Tableros': 'fa-table-cells-large',
+      'Zinc y accesorios': 'fa-warehouse',
+      'Fijaciones': 'fa-screwdriver-wrench',
+      'Art. Ferretería': 'fa-toolbox',
+      'Pinturas': 'fa-paint-roller',
+      'Puertas': 'fa-door-open',
+      'Molduras': 'fa-ruler-combined',
+      'Cerco': 'fa-border-all',
+      'Radier': 'fa-trowel-bricks',
+      'Aislantes': 'fa-temperature-low',
+      'Elaborado': 'fa-industry',
+      'Quincalleria': 'fa-gears',
+    };
+    return map[category] || 'fa-box';
+  }
+
+  irCategoria(category: string): void {
+    this.sharingDataService.subEventEmitter.emit([category, 'todo']);
+  }
+
+  // Anuncios (promos) de una categoría
+  anunciosDe(categoria: string): Anuncios[] {
+    return this.anuncios.filter(a => a.categoria === categoria);
+  }
+
+  // Anuncios generales (sin categoría) → sección de Ofertas / Imprescindibles
+  anunciosGenerales(): Anuncios[] {
+    return this.anuncios.filter(a => !a.categoria);
+  }
+
+  // Productos únicos (por nombre) de una categoría, para el carrusel
+  productosDe(categoria: string): Product[] {
+    const grupos = this.groupedProducts[categoria];
+    if (!grupos) return [];
+    const vistos = new Set<string>();
+    const out: Product[] = [];
+    Object.keys(grupos).forEach(sub => {
+      grupos[sub].forEach(p => {
+        if (!vistos.has(p.name)) { vistos.add(p.name); out.push(p); }
+      });
+    });
+    return out;
+  }
+
+  private dedupePorNombre(products: Product[]): Product[] {
+    const vistos = new Set<string>();
+    return products.filter(p => (vistos.has(p.name) ? false : (vistos.add(p.name), true)));
+  }
+
+  private priceLabel(p: Product): string {
+    const { min, max } = this.getMaxMin(p.name, p.category, p.subcategory);
+    return min === max ? `$${this.formatPrice(min)}` : `$${this.formatPrice(min)} - $${this.formatPrice(max)}`;
+  }
+
+  private toCard(p: Product): CarouselCard {
+    return { name: p.name, imagen: p.imagen, description: p.description, priceLabel: this.priceLabel(p) };
+  }
+
+  // Imprescindibles de temporada = productos destacados
+  cardsDestacados(): CarouselCard[] {
+    return this.dedupePorNombre(this.stars).map(p => this.toCard(p));
+  }
+
+  // Productos en oferta
+  cardsOfertas(): CarouselCard[] {
+    return this.dedupePorNombre(this.ofertas).map(p => {
+      const desc = p.precioOferta && p.price ? Math.round((1 - p.precioOferta / p.price) * 100) : 0;
+      return {
+        name: p.name,
+        imagen: p.imagen,
+        description: p.description,
+        priceLabel: `$${this.formatPrice(p.precioOferta || p.price)}`,
+        oldPriceLabel: `$${this.formatPrice(p.price)}`,
+        descuento: desc,
+      };
+    });
+  }
+
+  // Productos de una categoría (para su carrusel)
+  cardsDe(categoria: string): CarouselCard[] {
+    return this.productosDe(categoria).map(p => this.toCard(p));
+  }
+
+  // id de ancla para navegar a la sección de una categoría
+  catId(nombre: string): string {
+    return 'cat-' + nombre.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  }
+
+  scrollToCat(nombre: string): void {
+    const el = document.getElementById(this.catId(nombre));
+    if (el) {
+      const y = el.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  }
 }

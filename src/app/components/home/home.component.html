@@ -1,292 +1,114 @@
-<!-- Mostrar el loader si isLoading es true -->
+<!-- Loader -->
 <div *ngIf="isLoading">
   <app-loader></app-loader>
 </div>
 
-<!-- Mostrar los productos cuando isLoading es false -->
 <div *ngIf="!isLoading">
 
+  <!-- Hero / banner principal -->
   <div style="margin-top: 65px;">
-      <app-banner></app-banner>
-    
+    <app-banner></app-banner>
+  </div>
+
+  <!-- Franja de beneficios -->
+  <div class="lw-features">
+    <div class="lw-features-inner">
+      <div class="lw-feature">
+        <i class="fa-solid fa-truck-fast"></i>
+        <div><b>Despacho a domicilio</b><span>En toda la región</span></div>
+      </div>
+      <div class="lw-feature">
+        <i class="fa-solid fa-store"></i>
+        <div><b>Retiro en tienda</b><span>Listo el mismo día</span></div>
+      </div>
+      <div class="lw-feature">
+        <i class="fa-solid fa-shield-halved"></i>
+        <div><b>Pago seguro</b><span>WebPay y transferencia</span></div>
+      </div>
+      <div class="lw-feature">
+        <i class="fa-solid fa-headset"></i>
+        <div><b>Atención experta</b><span>Te asesoramos</span></div>
+      </div>
     </div>
-    
-    <!-- Contenedor para Ofertas -->
-     <div class="container my-5 d-flex justify-content-center">
-      <span class="text-responsive">Productos</span>
-          <span class="d-flex align-items-center text-responsive" style="color: #2510a3; margin-left: 5px; font-weight: bold;" id="Madera">
-            Destacados
-          </span>
-     </div>
-    <div class="container my-5">
-      <app-ofertas></app-ofertas>
+  </div>
+
+  <!-- Categorías destacadas -->
+  <div class="lw-section" *ngIf="categoriasDestacadas.length > 0">
+    <div class="lw-section-head">
+      <h2 class="lw-section-title">Categorías <span class="accent">destacadas</span></h2>
+      <a class="lw-btn lw-btn-ghost" [routerLink]="['/catalog']">Ver catálogo</a>
     </div>
-    
-    <div class="d-none d-lg-block">
-      <!-- Carrusel de Madera -->
-      <div class="container my-4" *ngIf="madera.length > 0">
-        <div class="d-flex align-items-center" style="margin-bottom: 20px; margin-top: 50px; margin-right: -10px;">
-          <span style="font-size: 25px;">Productos destacados</span>
-          <span class="d-flex align-items-center" style="color: #2510a3; margin-left: 5px; font-size: 25px; font-weight: bold;" id="Madera">
-            Madera
-          </span>
-        </div>
-    
-        <div id="carouselMadera" class="carousel slide" >
-          <div class="carousel-inner">
-            <div *ngFor="let productGroup of madera | slice: 0:cat1; let i = index" class="carousel-item" [class.active]="i === 0">
-              <div class="row">
-                <div *ngFor="let product of madera.slice(i*5, (i+1)*5)" class="col-6 col-md-4 col-lg-3 d-inline-block" style="width: 20%; height: auto;">
-                  <div class="card carta d-flex flex-column h-100" style="flex: 0 0 auto; ">
-                    <img [src]="product.imagen" class="card-img-top img" alt="...">
-                    <div class="car-body m-2 d-flex flex-column justify-content-between">
-                      <h5 class="card-title">{{product.name}}</h5>
-                      <p class="card-text descripcion">{{product.description}}</p>
-                      <!-- <p class="card-text priceMobile">
-                        ${{formatPrice(getMaxMin(product.name, 'Madera', 'subcategory').min)}} - ${{formatPrice(getMaxMin(product.name, 'Madera', 'subcategory').max)}}
-                      </p> -->
-                      <p class="card-text priceMobile" *ngIf="getMaxMin(product.name, product.category, product.subcategory).min === getMaxMin(product.name, product.category, product.subcategory).max">
-                        ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).min)}}
-                      </p>
-                      <p class="card-text priceMobile" *ngIf="getMaxMin(product.name, product.category, product.subcategory).min !== getMaxMin(product.name, product.category, product.subcategory).max">
-                        ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).min)}} - ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).max)}}
-                      </p>
-                    </div>
-                    <div class="card-footer d-flex justify-content-center mt-auto">
-                      <button class="btn btn-primary btn-sm" [routerLink]="['/product']" (click)="getProduct(product.name)" style="font-weight: bold;">Ver producto</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="d-flex justify-content-end my-4">
-            <button class="btn btn-primary btn-sm" style="background-color: #2510a3;" [routerLink]="['/catalog']">Ver más</button>
-          </div>
-          <!-- Controles del carrusel  holaß-->
-          <!-- Botón anterior -->
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselMadera" data-bs-slide="prev" style="width: 40px; height: 40px; margin-top: 150px; border-radius: 50%; background-color: #2510a3;">
-            <span class="carousel-control-prev-icon" style="background-color: transparent;"></span>
-            <span class="visually-hidden">Anterior</span>
-          </button>
-
-          <!-- Botón siguiente -->
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselMadera" data-bs-slide="next" style="width: 40px; height: 40px; margin-top: 150px; border-radius: 50%; background-color: #2510a3;">
-            <span class="carousel-control-next-icon" style="background-color: transparent;"></span>
-            <span class="visually-hidden">Siguiente</span>
-          </button>
-
-        </div>
-      </div>
-      <div class="container">
-        <div class="row">
-          <img src="https://i.imgur.com/Gh4RGLS.jpeg" alt="">
-        </div>
-        
-      </div>
-    
-      <!-- Carrusel de Tableros -->
-      <div class="container my-4" *ngIf="tableros.length > 0">
-        <div class="d-flex align-items-center" style="margin-bottom: 20px; margin-top: 50px; margin-right: -10px;">
-          <span style="font-size: 25px;">Productos destacados</span>
-          <span class="d-flex align-items-center" style="color: #2510a3; margin-left: 5px; font-size: 25px; font-weight: bold;" id="Tableros">
-            Tableros
-          </span>
-        </div>
-    
-        <div id="carouselTableros" class="carousel slide" >
-          <div class="carousel-inner">
-            <div *ngFor="let productGroup of tableros | slice: 0:cat2; let i = index" class="carousel-item" [class.active]="i === 0">
-              <div class="row">
-                <div *ngFor="let product of tableros.slice(i*5, (i+1)*5)" class="col-6 col-md-4 col-lg-3 d-inline-block" style="width: 20%; height: auto;">
-                  <div class="card carta d-flex flex-column h-100" style="flex: 0 0 auto; ">
-                    <img [src]="product.imagen" class="card-img-top img" alt="...">
-                    <div class="car-body m-2 d-flex flex-column justify-content-between">
-                      <h5 class="card-title">{{product.name}}</h5>
-                      <p class="card-text descripcion">{{product.description}}</p>
-                      <!-- <p class="card-text priceMobile">
-                        ${{formatPrice(getMaxMin(product.name, 'Tableros', 'subcategory').min)}} - ${{formatPrice(getMaxMin(product.name, 'Tableros', 'subcategory').max)}}
-                      </p> -->
-                      <p class="card-text priceMobile" *ngIf="getMaxMin(product.name, product.category, product.subcategory).min === getMaxMin(product.name, product.category, product.subcategory).max">
-                        ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).min)}}
-                      </p>
-                      <p class="card-text priceMobile" *ngIf="getMaxMin(product.name, product.category, product.subcategory).min !== getMaxMin(product.name, product.category, product.subcategory).max">
-                        ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).min)}} - ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).max)}}
-                      </p>
-                    </div>
-                    <div class="card-footer d-flex justify-content-center mt-auto">
-                      <button class="btn btn-primary btn-sm" [routerLink]="['/product']" (click)="getProduct(product.name)" style="font-weight: bold;">Ver producto</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="d-flex justify-content-end my-4">
-            <button class="btn btn-primary btn-sm" style="background-color: #2510a3;" [routerLink]="['/catalog']">Ver más</button>
-          </div>
-          <!-- Controles del carrusel -->
-                    <!-- Botón anterior -->
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselTableros" data-bs-slide="prev" style="width: 40px; height: 40px; margin-top: 150px; border-radius: 50%; background-color: #2510a3;">
-            <span class="carousel-control-prev-icon" style="background-color: transparent;"></span>
-            <span class="visually-hidden">Anterior</span>
-          </button>
-
-          <!-- Botón siguiente -->
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselTableros" data-bs-slide="next" style="width: 40px; height: 40px; margin-top: 150px; border-radius: 50%; background-color: #2510a3;">
-            <span class="carousel-control-next-icon" style="background-color: transparent;"></span>
-            <span class="visually-hidden">Siguiente</span>
-          </button>
-
-        </div>
-      </div>
-      <div class="container">
-        <div class="row">
-          <img src="https://i.imgur.com/Gh4RGLS.jpeg" alt="">
-        </div>
-        
-      </div>
-    
-      <!-- Carrusel de Zinc -->
-      <div class="container my-4" *ngIf="zinc.length > 0">
-        <div class="d-flex align-items-center" style="margin-bottom: 20px; margin-top: 50px; margin-right: -10px;">
-          <span style="font-size: 25px;">Productos destacados</span>
-          <span class="d-flex align-items-center" style="color: #2510a3; margin-left: 5px; font-size: 25px; font-weight: bold;" id="Zinc y accesorios">
-            Zinc y accesorios
-          </span>
-        </div>
-    
-        <div id="carouselZinc" class="carousel slide" >
-          <div class="carousel-inner">
-            <div *ngFor="let productGroup of zinc | slice: 0:cat3; let i = index" class="carousel-item" [class.active]="i === 0">
-              <div class="row">
-                <div *ngFor="let product of zinc.slice(i*5, (i+1)*5)" class="col-6 col-md-4 col-lg-3 d-inline-block" style="width: 20%; height: auto;">
-                  <div class="card carta d-flex flex-column h-100" style="flex: 0 0 auto; ">
-                    <img [src]="product.imagen" class="card-img-top img" alt="...">
-                    <div class="car-body m-2 d-flex flex-column justify-content-between">
-                      <h5 class="card-title">{{product.name}}</h5>
-                      <p class="card-text descripcion">{{product.description}}</p>
-                      <!-- <p class="card-text priceMobile">
-                        ${{formatPrice(getMaxMin(product.name, 'Zinc', 'subcategory').min)}} - ${{formatPrice(getMaxMin(product.name, 'Zinc', 'subcategory').max)}}
-                      </p> -->
-                      <p class="card-text priceMobile" *ngIf="getMaxMin(product.name, product.category, product.subcategory).min === getMaxMin(product.name, product.category, product.subcategory).max">
-                        ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).min)}}
-                      </p>
-                      <p class="card-text priceMobile" *ngIf="getMaxMin(product.name, product.category, product.subcategory).min !== getMaxMin(product.name, product.category, product.subcategory).max">
-                        ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).min)}} - ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).max)}}
-                      </p>
-                    </div>
-                    <div class="card-footer d-flex justify-content-center mt-auto">
-                      <button class="btn btn-primary btn-sm" [routerLink]="['/product']" (click)="getProduct(product.name)" style="font-weight: bold;">Ver producto</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="d-flex justify-content-end my-4">
-            <button class="btn btn-primary btn-sm" style="background-color: #2510a3;" [routerLink]="['/catalog']">Ver más</button>
-          </div>
-    
-          <!-- Controles del carrusel -->
-          <!-- Botón anterior -->
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselZinc" data-bs-slide="prev" style="width: 40px; height: 40px; margin-top: 150px; border-radius: 50%; background-color: #2510a3;">
-              <span class="carousel-control-prev-icon" style="background-color: transparent;"></span>
-              <span class="visually-hidden">Anterior</span>
-            </button>
-
-            <!-- Botón siguiente -->
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselZinc" data-bs-slide="next" style="width: 40px; height: 40px; margin-top: 150px; border-radius: 50%; background-color: #2510a3;">
-              <span class="carousel-control-next-icon" style="background-color: transparent;"></span>
-              <span class="visually-hidden">Siguiente</span>
-            </button>
-
-        </div>
-        <div class="container">
-          <div class="row">
-            <img src="https://i.imgur.com/Gh4RGLS.jpeg" alt="">
-          </div>
-          
-        </div>
-      </div>
-              <!-- Botón de WhatsApp -->
-              <a href="https://web.whatsapp.com/send?phone=56967453739" class="whatsapp-button" target="_blank">
-                <i class="fab fa-whatsapp fa-2x"></i>
-              </a>
-              <a href="https://web.whatsapp.com/send?phone=56967453739" class="msg-button" target="_blank">
-                ¿Necesitas ayuda?
-              </a>
-    </div>
-    
-    <div class="d-block d-lg-none">
-
-      @for (category of getCategoryKeys(); track $index) {
-        @if ((category == 'Tableros') || (category == 'Zinc y accesorios') || (category == 'Madera')) {
-
-          <div class="container my-4">
-            <div class="d-flex align-items-center" style="margin-bottom: 20px; margin-top: 50px;">
-              <span style="font-size: 20px;">Productos destacados</span>
-              <span class="d-flex align-items-center" style="color: #2510a3; margin-left: 5px; font-size: 20px; font-weight: bold;" id="{{category}}">{{category}}
-              </span>
-            </div>
-            <div class="row flex-nowrap overflow-auto" style="white-space: nowrap;">
-            @for (subcategory of getSubcategoryKeys(category); track $index) {
-                @for (product of groupedProducts[category][subcategory]; track $index) {
-                    <!-- Hacemos las columnas responsivas -->
-                    <div class="col-6 col-md-4 col-lg-3 d-inline-block" style="width: 45%; height: auto; margin-right: -10px;">
-                        <!-- Aseguramos que todas las tarjetas tengan la misma altura -->
-                        <div class="card carta d-flex flex-column h-100" style="flex: 0 0 auto; ">
-                            <img src="{{product.imagen}}" class="card-img-top img" alt="...">
-                            <!-- El cuerpo de la tarjeta se estira para ocupar el espacio restante -->
-                            <div class="car-body m-2 d-flex flex-column justify-content-between">
-                                <h5 class="card-title">{{product.name}}</h5>
-                                <!-- Limitamos la altura del texto con una clase personalizada -->
-                                <p class="card-text descripcion" style="max-height: 3rem; overflow: hidden;">
-                                  {{product.description}}
-                                </p>
-                                <p class="card-text priceMobile" *ngIf="getMaxMin(product.name, product.category, product.subcategory).min === getMaxMin(product.name, product.category, product.subcategory).max">
-                                  ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).min)}}
-                                </p>
-                                <p class="card-text priceMobile" *ngIf="getMaxMin(product.name, product.category, product.subcategory).min !== getMaxMin(product.name, product.category, product.subcategory).max">
-                                  ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).min)}} - ${{formatPrice(getMaxMin(product.name, product.category, product.subcategory).max)}}
-                                </p>
-                              </div>
-                              <div class=" card-footer d-flex justify-content-center mt-auto">
-                                <button class="btn btn-primary btn-custom-size mx-2" 
-                                [routerLink]="['/product']" (click)="getProduct(product.name)">Ver producto</button>
-                              </div>
-                        </div>
-                    </div>
-                  }
-                  
-                }
-              </div>
-            <div class="d-flex justify-content-end my-4">
-              <button class="btn btn-primary btn-sm" style="background-color: #2510a3;" [routerLink]="['/catalog']">Ver más</button>
-            </div>
-            <div class="container">
-              <div class="row">
-                <img src="https://i.imgur.com/Gh4RGLS.jpeg" alt="" style="height: 40px;">
-              </div>
-              
-            </div>
-          </div>
-        
+    <div class="lw-cats">
+      @for (cat of categoriasDestacadas; track cat.nombre) {
+        <a class="lw-cat" [routerLink]="['/catalog']" (click)="irCategoria(cat.nombre)">
+          @if (cat.imagen) {
+            <img class="lw-cat-img" [src]="cat.imagen" [alt]="cat.nombre" />
+          } @else {
+            <i class="fa-solid" [ngClass]="catIcon(cat.nombre)"></i>
+          }
+          <span>{{ cat.nombre }}</span>
+        </a>
       }
-      }
-      <a href="https://wa.me/56967453739?text=Hola,%20necesito%20ayuda" class="whatsapp-button" target="_blank">
-        <i class="fab fa-whatsapp fa-2x"></i>
-      </a>
-      <a href="https://wa.me/56967453739?text=Hola,%20necesito%20ayuda" class="msg-button" target="_blank">
-        ¿Necesitas ayuda?
-      </a>
-      
     </div>
+  </div>
 
-      
-    
-    
-  
-    
+  <!-- Ofertas / Imprescindibles de temporada -->
+  <div class="lw-section" *ngIf="cardsDestacados().length > 0">
+    <div class="lw-section-head">
+      <h2 class="lw-section-title">Imprescindibles <span class="accent">de temporada</span></h2>
+      <a class="lw-btn lw-btn-ghost" [routerLink]="['/catalog']">Ver más</a>
+    </div>
+    <app-product-carousel [items]="cardsDestacados()"></app-product-carousel>
+  </div>
+
+  <!-- Productos en oferta -->
+  <div class="lw-section" *ngIf="cardsOfertas().length > 0">
+    <div class="lw-section-head">
+      <h2 class="lw-section-title">Productos <span class="accent">en oferta</span></h2>
+      <a class="lw-btn lw-btn-ghost" [routerLink]="['/catalog']">Ver más</a>
+    </div>
+    <app-product-carousel [items]="cardsOfertas()"></app-product-carousel>
+  </div>
+
+  <!-- Barra de navegación por categorías -->
+  <div class="lw-catnav" *ngIf="categoriasDestacadas.length > 0">
+    <div class="lw-catnav-inner">
+      @for (cat of categoriasDestacadas; track cat.nombre) {
+        <button class="lw-chip" (click)="scrollToCat(cat.nombre)">
+          <i class="fa-solid" [ngClass]="catIcon(cat.nombre)"></i> {{ cat.nombre }}
+        </button>
+      }
+    </div>
+  </div>
+
+  <!-- Sección por cada categoría destacada -->
+  @for (cat of categoriasDestacadas; track cat.nombre) {
+    <div class="lw-section lw-catsection" [id]="catId(cat.nombre)">
+      <div class="lw-section-head">
+        <h2 class="lw-section-title">{{ cat.nombre }}</h2>
+        <a class="lw-btn lw-btn-ghost" [routerLink]="['/catalog']" (click)="irCategoria(cat.nombre)">Ver todo</a>
+      </div>
+
+      <!-- Promos / anuncios de la categoría (mosaico, hasta 6) -->
+      <div class="lw-mosaic" *ngIf="anunciosDe(cat.nombre).length > 0">
+        @for (anuncio of anunciosDe(cat.nombre).slice(0, 6); track anuncio.id) {
+          <a class="lw-mtile" [routerLink]="['/catalog']" (click)="irCategoria(cat.nombre)">
+            <img [src]="anuncio.img" alt="promo" loading="lazy" />
+          </a>
+        }
+      </div>
+
+      <!-- Carrusel de productos de la categoría -->
+      <app-product-carousel [items]="cardsDe(cat.nombre)"></app-product-carousel>
+    </div>
+  }
+
+  <!-- Botón de WhatsApp -->
+  <a href="https://wa.me/56967453739?text=Hola,%20necesito%20ayuda" class="whatsapp-button" target="_blank">
+    <i class="fab fa-whatsapp fa-2x"></i>
+  </a>
+  <a href="https://wa.me/56967453739?text=Hola,%20necesito%20ayuda" class="msg-button" target="_blank">
+    ¿Necesitas ayuda?
+  </a>
+
 </div>
-

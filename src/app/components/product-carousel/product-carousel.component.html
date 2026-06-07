@@ -1,0 +1,35 @@
+<div class="lw-carousel" *ngIf="items.length > 0">
+  <button class="lw-carousel-arrow prev" (click)="scroll(-1)" *ngIf="canPrev" aria-label="Anterior">
+    <i class="fa-solid fa-chevron-left"></i>
+  </button>
+
+  <div class="lw-carousel-track" #track (scroll)="onScroll()">
+    @for (item of items; track item.name) {
+      <div class="lw-pcard">
+        <span class="lw-pcard-badge" *ngIf="item.descuento">-{{ item.descuento }}%</span>
+        <a class="lw-pcard-img" [routerLink]="['/product']" (click)="verProducto(item.name)">
+          <img [src]="item.imagen" [alt]="item.name" loading="lazy" />
+        </a>
+        <div class="lw-pcard-body">
+          <p class="lw-pcard-name">{{ item.name }}</p>
+          <p class="lw-pcard-desc">{{ item.description }}</p>
+          <p class="lw-pcard-old" *ngIf="item.oldPriceLabel">{{ item.oldPriceLabel }}</p>
+          <p class="lw-pcard-price">{{ item.priceLabel }}</p>
+          <button class="lw-btn lw-btn-block" [routerLink]="['/product']" (click)="verProducto(item.name)">
+            Ver producto
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+
+  <button class="lw-carousel-arrow next" (click)="scroll(1)" *ngIf="canNext" aria-label="Siguiente">
+    <i class="fa-solid fa-chevron-right"></i>
+  </button>
+
+  <div class="lw-dots" *ngIf="dots.length > 1">
+    @for (d of dots; track $index) {
+      <button class="lw-dot" [class.active]="$index === activeDot" (click)="goToPage($index)" aria-label="Ir a página"></button>
+    }
+  </div>
+</div>

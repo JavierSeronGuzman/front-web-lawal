@@ -4,6 +4,7 @@ export class Product{
     category!: string;
     subcategory!: string;
     price!: number;
+    precioOferta?: number | null;
     quantity!: number;
     description!: string;
     imagen!: string | null;

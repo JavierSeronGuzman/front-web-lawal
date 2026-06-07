@@ -1,0 +1,16 @@
+<div class="lw-offers-row" *ngIf="ofertas.length > 0">
+  <div class="lw-offer-card" *ngFor="let p of ofertas">
+    <div class="lw-offer-badge">-{{ descuento(p) }}%</div>
+    <a class="lw-offer-imgwrap" [routerLink]="['/product']" (click)="verProducto(p.name)">
+      <img [src]="p.imagen" [alt]="p.name" loading="lazy" />
+    </a>
+    <div class="lw-offer-body">
+      <p class="lw-offer-name">{{ p.name }}</p>
+      <p class="lw-offer-old">${{ formatPrice(p.price) }}</p>
+      <p class="lw-offer-new">${{ formatPrice(p.precioOferta || p.price) }}</p>
+      <button class="lw-btn lw-btn-block" [routerLink]="['/product']" (click)="verProducto(p.name)">
+        Ver producto
+      </button>
+    </div>
+  </div>
+</div>

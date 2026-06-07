@@ -15,7 +15,7 @@
       <div class="carousel-inner">
         @for (banner of banners; track $index) {
   
-          <div class="carousel-item" [ngClass]="{'active': banner.id === 1}" data-bs-interval="3000">
+          <div class="carousel-item" [ngClass]="{'active': $first}" data-bs-interval="3000">
             <img src={{banner.img}} class="d-block w-100 carousel-img" alt="..." style="height: 350px;">
           </div>
         }
@@ -40,7 +40,7 @@
       <div class="carousel-inner col-12">
         @for (banner of banners; track $index) {
   
-          <div class="carousel-item" [ngClass]="{'active': banner.id === 1}" data-bs-interval="3000">
+          <div class="carousel-item" [ngClass]="{'active': $first}" data-bs-interval="3000">
             <img src={{banner.img}} class="d-block w-100 " style="width: 100%; max-width: 800px; height: auto;" alt="...">
           </div>
         }
