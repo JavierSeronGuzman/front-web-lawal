@@ -61,7 +61,7 @@ export function capitalizar(s: string): string {
               </div>
             }
           } @else {
-            <div class="banner-marco banner-vacio"><img src="Logoblanco3.png" alt="Lawal Constructor" /></div>
+            <div class="banner-marco banner-vacio"><img src="logo-lawal-constructor.png" alt="Lawal Constructor" /></div>
           }
         </div>
       </div>

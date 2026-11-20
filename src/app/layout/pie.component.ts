@@ -16,7 +16,7 @@ import { IconoComponent } from '../ui/icono.component';
     <footer class="pie">
       <div class="contenedor pie-in">
         <div class="pie-marca">
-          <img src="logoblancoess.png" alt="Lawal Constructor" />
+          <img src="logo-lawal-constructor.png" alt="Lawal Constructor" />
           <p>{{ tienda.descripcion }}</p>
         </div>
         <div class="pie-cols">
