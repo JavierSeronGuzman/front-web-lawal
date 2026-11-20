@@ -1,17 +1,17 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
-import { CategoryComponent } from './components/category.component';
-import { PayComponent } from './components/pay/pay.component';
-import { OnlyProductComponent } from './components/only-product/only-product.component';
-import { NosotrosComponent } from './components/nosotros/nosotros.component';
-import { LoaderComponent } from './components/loader/loader.component';
+import { InicioComponent } from './paginas/inicio.component';
+import { CatalogoComponent } from './paginas/catalogo.component';
+import { ProductoComponent } from './paginas/producto.component';
+import { NosotrosComponent } from './paginas/nosotros.component';
 
 export const routes: Routes = [
-    {path:'', component: HomeComponent},
-    {path:'catalog', component: CategoryComponent},
-    {path:'pago', component: PayComponent},
-    {path:'product', component: OnlyProductComponent},
-    {path:'nosotros',component: NosotrosComponent},
-    {path: 'loader',component: LoaderComponent}
+  { path: '', component: InicioComponent, title: 'Lawal Constructor · Barraca de maderas en Puerto Montt' },
+  { path: 'catalog', component: CatalogoComponent, title: 'Catálogo · Lawal Constructor' },
+  { path: 'producto/:idslug', component: ProductoComponent },
+  { path: 'nosotros', component: NosotrosComponent, title: 'Nosotros · Lawal Constructor' },
+  // Rutas antiguas: /product no llevaba id (pasaba el nombre por estado interno) → catálogo.
+  { path: 'product', redirectTo: 'catalog', pathMatch: 'full' },
+  { path: 'pago', redirectTo: '', pathMatch: 'full' },
+  { path: 'loader', redirectTo: '', pathMatch: 'full' },
+  { path: '**', redirectTo: '' },
 ];
-
