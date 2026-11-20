@@ -10,7 +10,7 @@ import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core
       <img [src]="src()" [alt]="alt()" loading="lazy" (error)="fallo.set(true)" />
     } @else {
       <div class="sin-foto" role="img" [attr.aria-label]="alt() + ' (sin foto)'">
-        <img src="Logoblanco3.png" alt="" />
+        <img src="logo-lawal-constructor.png" alt="" />
         <span>Sin foto</span>
       </div>
     }

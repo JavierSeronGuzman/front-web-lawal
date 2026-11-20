@@ -32,7 +32,7 @@ import { IconoComponent } from '../ui/icono.component';
           <app-icono nombre="menu" [tam]="24" />
         </button>
         <a routerLink="/" class="logo" aria-label="Lawal Constructor, inicio">
-          <img src="logoblancoess.png" alt="Lawal Constructor" />
+          <img src="logo-lawal-constructor.png" alt="Lawal Constructor" />
         </a>
         <form class="buscador" role="search" (ngSubmit)="buscar()">
           <app-icono class="lupa solo-movil" nombre="search" [tam]="18" />
