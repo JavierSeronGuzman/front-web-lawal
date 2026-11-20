@@ -8,7 +8,8 @@
     "serve:prod": "serve -s dist/pagina-lawal/browser -l ${PORT:-4200}",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "e2e": "playwright test"
+    "e2e": "playwright test",
+    "build:qa": "ng build --configuration qa"
   },
   "private": true,
   "dependencies": {
