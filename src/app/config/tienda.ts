@@ -10,7 +10,7 @@ export const TIENDA = {
   despacho: 'Despacho en Puerto Montt, Alerce y alrededores',
   horario: 'Lun a Vie 8:30–18:00 · Sáb 8:30–13:30',
   direccion: 'Av. Gabriela Mistral 967, Alerce, Puerto Montt',
-  correo: 'contacto@lawalconstructor.cl',
+  correo: 'maderaslawal@hotmail.com',
   descripcion:
     'Barraca de maderas y materiales de construcción en Alerce, Puerto Montt. Cotiza en línea y te confirmamos por WhatsApp.',
   redes: [

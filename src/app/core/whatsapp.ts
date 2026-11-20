@@ -14,9 +14,9 @@ export const TEXTO_ENTREGA: Record<Entrega, string> = {
   retiro: 'Retiro en tienda',
 };
 
-/** Mensaje de la cotización, con el formato exacto de la maqueta (PRD 13). */
+/** Mensaje de la cotización con el formato de la maqueta, pero con «x» (PRD 13, duda 1 resuelta). */
 export function mensajeCotizacion(lineas: LineaMensaje[], total: number, entrega: Entrega): string {
-  const filas = lineas.map((l) => `${l.cantidad} × ${[l.nombre, l.medida].filter((x) => !!x).join(' ')}`);
+  const filas = lineas.map((l) => `${l.cantidad} x ${[l.nombre, l.medida].filter((x) => !!x).join(' ')}`);
   return [
     'Hola Lawal, quiero cotizar:',
     ...filas,
