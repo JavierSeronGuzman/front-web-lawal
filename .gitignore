@@ -40,3 +40,8 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# PRD 13: capturas y reportes de Playwright
+/e2e/capturas
+/test-results
+/playwright-report
